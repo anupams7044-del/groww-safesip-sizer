@@ -14,6 +14,7 @@ export const FloatingGuideTooltip: React.FC<FloatingGuideTooltipProps> = ({
   storageKey,
   position = "top",
   type,
+  onCTAClick,
 }) => {
   const [isVisible, setIsVisible] = useState<boolean>(true);
 
@@ -35,6 +36,15 @@ export const FloatingGuideTooltip: React.FC<FloatingGuideTooltipProps> = ({
       // In case of restricted localStorage (incognito/iframe)
     }
   }, [storageKey]);
+
+  useEffect(() => {
+    if (!isVisible) return;
+    // Auto-dismiss after 10 seconds if not closed manually
+    const timer = setTimeout(() => {
+      handleDismiss();
+    }, 10000);
+    return () => clearTimeout(timer);
+  }, [isVisible]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -85,7 +95,7 @@ export const FloatingGuideTooltip: React.FC<FloatingGuideTooltipProps> = ({
               {type === "home" ? (
                 <>
                   <Sparkles className="w-3 h-3 text-emerald-600" />
-                  <span>Start Here</span>
+                  <span>Safe SIP Sizer</span>
                 </>
               ) : (
                 <>
@@ -107,9 +117,15 @@ export const FloatingGuideTooltip: React.FC<FloatingGuideTooltipProps> = ({
 
         {/* Content based on screen */}
         {type === "home" ? (
-          <div className="pt-0.5">
-            <p className="text-xs font-semibold text-gray-800 leading-snug">
-              Start here: try the Safe SIP Resizer. Tap it to begin.
+          <div
+            onClick={() => {
+              handleDismiss();
+              onCTAClick?.();
+            }}
+            className="pt-0.5 cursor-pointer hover:opacity-90 transition-opacity"
+          >
+            <p className="text-xs font-semibold text-gray-900 leading-snug">
+              Need help calculating your safe SIP amount? Tap here
             </p>
           </div>
         ) : (

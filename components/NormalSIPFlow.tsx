@@ -78,6 +78,7 @@ export const NormalSIPFlow: React.FC<NormalSIPFlowProps> = ({
             storageKey="groww_guide_home"
             type="home"
             position="bottom"
+            onCTAClick={handleSizerClick}
           />
 
           <button
