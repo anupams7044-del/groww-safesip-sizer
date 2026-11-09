@@ -10,6 +10,7 @@ import {
   Building2,
   ChevronLeft,
 } from "lucide-react";
+import { FloatingGuideTooltip } from "./FloatingGuideTooltip";
 
 interface AAConsentScreenProps {
   persona: UserPersona;
@@ -25,6 +26,11 @@ export const AAConsentScreen: React.FC<AAConsentScreenProps> = ({
   const [isAuthorizing, setIsAuthorizing] = useState(false);
 
   const handleSimulateConsent = () => {
+    try {
+      if (typeof window !== "undefined") {
+        localStorage.setItem("groww_guide_consent", "true");
+      }
+    } catch {}
     setIsAuthorizing(true);
     setTimeout(() => {
       setIsAuthorizing(false);
@@ -120,7 +126,14 @@ export const AAConsentScreen: React.FC<AAConsentScreenProps> = ({
         </div>
 
         {/* Action Buttons */}
-        <div className="pt-2 space-y-2">
+        <div className="pt-2 space-y-2 relative">
+          {/* 🌟 Floating One-Time Pop-up aimed at Consent CTA (Non-Blocking) 🌟 */}
+          <FloatingGuideTooltip
+            storageKey="groww_guide_consent"
+            type="consent"
+            position="top"
+          />
+
           <button
             id="tour-step2-cta"
             onClick={handleSimulateConsent}
