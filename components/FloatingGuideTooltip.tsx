@@ -24,12 +24,24 @@ export const FloatingGuideTooltip: React.FC<FloatingGuideTooltipProps> = ({
   onCTAClick,
   className = "",
 }) => {
-  const [isVisible, setIsVisible] = useState<boolean>(true);
+  const [isVisible, setIsVisible] = useState<boolean>(() => {
+    if (typeof window !== "undefined") {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get("clean") === "true" || urlParams.get("hideGuide") === "true") {
+        return false;
+      }
+    }
+    return true;
+  });
 
   useEffect(() => {
     try {
       if (typeof window !== "undefined") {
         const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get("clean") === "true" || urlParams.get("hideGuide") === "true") {
+          setIsVisible(false);
+          return;
+        }
         if (urlParams.get("resetGuide") === "true") {
           localStorage.removeItem(storageKey);
           setIsVisible(true);
