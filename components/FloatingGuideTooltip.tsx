@@ -6,7 +6,7 @@ import { X, ShieldCheck, Sparkles, CheckCircle2 } from "lucide-react";
 interface FloatingGuideTooltipProps {
   storageKey: string;
   position?: "top" | "bottom" | "left" | "right";
-  type: "home" | "consent" | "sizer";
+  type: "home" | "consent" | "sizer" | "persona";
   onCTAClick?: () => void;
 }
 
@@ -102,6 +102,11 @@ export const FloatingGuideTooltip: React.FC<FloatingGuideTooltipProps> = ({
                   <ShieldCheck className="w-3 h-3 text-emerald-600" />
                   <span>Safe Verification</span>
                 </>
+              ) : type === "persona" ? (
+                <>
+                  <Sparkles className="w-3 h-3 text-emerald-600" />
+                  <span>Select Profile</span>
+                </>
               ) : (
                 <>
                   <Sparkles className="w-3 h-3 text-emerald-600" />
@@ -152,6 +157,15 @@ export const FloatingGuideTooltip: React.FC<FloatingGuideTooltipProps> = ({
                 <span>Read-only cashflow analysis only</span>
               </div>
             </div>
+          </div>
+        ) : type === "persona" ? (
+          <div className="pt-0.5 text-[11px] text-gray-700 font-medium leading-snug">
+            <p className="font-bold text-xs text-gray-900">
+              Choose your dummy user
+            </p>
+            <p className="text-[10.5px] text-slate-500 mt-0.5">
+              Select Priya, Rohan, or Arjun to test cashflow sizing across different income profiles.
+            </p>
           </div>
         ) : (
           <div className="pt-0.5 text-[11px] text-gray-700 font-medium leading-relaxed">

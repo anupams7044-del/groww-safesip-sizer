@@ -74,7 +74,14 @@ export const AAConsentScreen: React.FC<AAConsentScreenProps> = ({
 
         {/* 🌟 STEP 1: CHOOSE USER PERSONA FIRST 🌟 */}
         {personas && personas.length > 0 && (
-          <div className="space-y-2.5">
+          <div className="space-y-2.5 relative">
+            {/* Temporary On-The-Fly Nudge near the 3 options */}
+            <FloatingGuideTooltip
+              storageKey="groww_guide_persona"
+              type="persona"
+              position="top"
+            />
+
             <div className="flex items-center justify-between">
               <label className="text-[11px] font-extrabold text-gray-700 uppercase tracking-wider flex items-center gap-1.5">
                 <Users className="w-3.5 h-3.5 text-emerald-600" />
