@@ -27,10 +27,15 @@ export interface UserPersona {
   badgeColor: string;
   age: number;
   profession: string;
+  city: string;
+  incomePattern: string;
   monthlySalary: number;
   payday: number; // day of month salary arrives (e.g. 1 or 31)
   story: string;
   paydayGuessAmount: number; // what they blindly pick on payday
+  bankName?: string;
+  whyThisAmount?: string;
+  fallbackText?: string;
   historicalData: CashflowMonth[];
 }
 

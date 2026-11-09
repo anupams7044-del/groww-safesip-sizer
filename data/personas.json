@@ -1,0 +1,191 @@
+[
+  {
+    "id": "priya",
+    "name": "Priya Nair",
+    "tagline": "Salaried Fresher (Steady Salary)",
+    "lifecycleStage": "Day 0 New Investor",
+    "badgeColor": "bg-emerald-100 text-emerald-800 border-emerald-300",
+    "age": 24,
+    "profession": "Junior QA Engineer",
+    "city": "Bangalore",
+    "incomePattern": "Steady salary on the 1st",
+    "monthlySalary": 45000,
+    "payday": 1,
+    "paydayGuessAmount": 8000,
+    "bankName": "HDFC Bank",
+    "whyThisAmount": "With ₹23,000 fixed bills and ₹16,450 average expenses, Priya's net surplus is ₹5,550. ₹2,000/mo leaves a safe ₹3,550 cash buffer for unexpected spends, keeping bounce probability at 0%.",
+    "fallbackText": "Thin transaction history fallback: Defaulting to safe 10% income buffer guideline (₹2,000/mo).",
+    "story": "Wants to start wealth building. On payday, ₹8,000 seems easy, but in months with medical emergencies or trips, her account dips below ₹2,000, risking severe NACH bounce charges.",
+    "historicalData": [
+      {
+        "month": "May 2026",
+        "salary": 45000,
+        "fixedCommitments": { "rent": 12000, "emis": 4500, "insuranceAndUtilities": 2500, "familySupport": 4000, "totalFixed": 23000 },
+        "variedLifestyle": { "groceriesAndDineOut": 7000, "shoppingAndLeisure": 4000, "adhocSpikes": 2000, "spikeReason": "Normal routine expenses", "totalVaried": 13000 },
+        "netSurplus": 9000
+      },
+      {
+        "month": "Jun 2026",
+        "salary": 45000,
+        "fixedCommitments": { "rent": 12000, "emis": 4500, "insuranceAndUtilities": 2500, "familySupport": 4000, "totalFixed": 23000 },
+        "variedLifestyle": { "groceriesAndDineOut": 7500, "shoppingAndLeisure": 4500, "adhocSpikes": 11000, "spikeReason": "Emergency dental procedure & diagnostic scans (Ad-hoc Medical)", "totalVaried": 23000 },
+        "netSurplus": -1000,
+        "isLowestSurplusMonth": true
+      },
+      {
+        "month": "Jul 2026",
+        "salary": 45000,
+        "fixedCommitments": { "rent": 12000, "emis": 4500, "insuranceAndUtilities": 2500, "familySupport": 4000, "totalFixed": 23000 },
+        "variedLifestyle": { "groceriesAndDineOut": 7200, "shoppingAndLeisure": 3800, "adhocSpikes": 3000, "spikeReason": "Annual software subscription renewal", "totalVaried": 14000 },
+        "netSurplus": 8000
+      },
+      {
+        "month": "Aug 2026",
+        "salary": 45000,
+        "fixedCommitments": { "rent": 12000, "emis": 4500, "insuranceAndUtilities": 2500, "familySupport": 4000, "totalFixed": 23000 },
+        "variedLifestyle": { "groceriesAndDineOut": 7000, "shoppingAndLeisure": 3500, "adhocSpikes": 8500, "spikeReason": "Long weekend trip with college batchmates (Travel spike)", "totalVaried": 19000 },
+        "netSurplus": 3000
+      },
+      {
+        "month": "Sep 2026",
+        "salary": 45000,
+        "fixedCommitments": { "rent": 12000, "emis": 4500, "insuranceAndUtilities": 2500, "familySupport": 4000, "totalFixed": 23000 },
+        "variedLifestyle": { "groceriesAndDineOut": 7200, "shoppingAndLeisure": 4000, "adhocSpikes": 2500, "spikeReason": "Routine festival gift purchase", "totalVaried": 13700 },
+        "netSurplus": 8300
+      },
+      {
+        "month": "Oct 2026",
+        "salary": 45000,
+        "fixedCommitments": { "rent": 12000, "emis": 4500, "insuranceAndUtilities": 2500, "familySupport": 4000, "totalFixed": 23000 },
+        "variedLifestyle": { "groceriesAndDineOut": 6800, "shoppingAndLeisure": 4200, "adhocSpikes": 5000, "spikeReason": "Diwali shopping & family travel home", "totalVaried": 16000 },
+        "netSurplus": 6000
+      }
+    ]
+  },
+  {
+    "id": "rohan",
+    "name": "Rohan Das",
+    "tagline": "Freelance Consultant (Irregular Cashflows)",
+    "lifecycleStage": "Month 5 At-Risk User",
+    "badgeColor": "bg-amber-100 text-amber-800 border-amber-300",
+    "age": 28,
+    "profession": "Freelance UI/UX Consultant",
+    "city": "Mumbai",
+    "incomePattern": "Irregular freelance income",
+    "monthlySalary": 68000,
+    "payday": 6,
+    "paydayGuessAmount": 15000,
+    "bankName": "ICICI Bank",
+    "whyThisAmount": "Client invoices clear between the 5th and 10th. With ₹35,000 fixed bills and ₹19,800 typical expenses, a ₹5,000 SIP on the 10th guarantees payment clearance without cash crunch.",
+    "fallbackText": "Variable income fallback: Capped at conservative 35% of lowest historical month surplus.",
+    "story": "Started a ₹15,000 SIP on the 15th. When clients delayed payments in Month 3, he faced a ₹450 NACH bounce fee. With Safe SIP Sizer, his debit date is aligned to the 10th and SIP is right-sized to ₹5,000.",
+    "historicalData": [
+      {
+        "month": "May 2026",
+        "salary": 68000,
+        "fixedCommitments": { "rent": 17000, "emis": 7000, "insuranceAndUtilities": 4000, "familySupport": 7000, "totalFixed": 35000 },
+        "variedLifestyle": { "groceriesAndDineOut": 8500, "shoppingAndLeisure": 5000, "adhocSpikes": 3000, "spikeReason": "Software tooling renewals", "totalVaried": 16500 },
+        "netSurplus": 16500
+      },
+      {
+        "month": "Jun 2026",
+        "salary": 68000,
+        "fixedCommitments": { "rent": 17000, "emis": 7000, "insuranceAndUtilities": 4000, "familySupport": 7000, "totalFixed": 35000 },
+        "variedLifestyle": { "groceriesAndDineOut": 8000, "shoppingAndLeisure": 4800, "adhocSpikes": 16000, "spikeReason": "Emergency laptop hardware replacement (Work continuity)", "totalVaried": 28800 },
+        "netSurplus": 4200,
+        "isLowestSurplusMonth": true
+      },
+      {
+        "month": "Jul 2026",
+        "salary": 68000,
+        "fixedCommitments": { "rent": 17000, "emis": 7000, "insuranceAndUtilities": 4000, "familySupport": 7000, "totalFixed": 35000 },
+        "variedLifestyle": { "groceriesAndDineOut": 8000, "shoppingAndLeisure": 4800, "adhocSpikes": 6000, "spikeReason": "Client on-site travel advance", "totalVaried": 18800 },
+        "netSurplus": 14200
+      },
+      {
+        "month": "Aug 2026",
+        "salary": 68000,
+        "fixedCommitments": { "rent": 17000, "emis": 7000, "insuranceAndUtilities": 4000, "familySupport": 7000, "totalFixed": 35000 },
+        "variedLifestyle": { "groceriesAndDineOut": 8500, "shoppingAndLeisure": 5500, "adhocSpikes": 4500, "spikeReason": "Vehicle maintenance & monsoons", "totalVaried": 18500 },
+        "netSurplus": 14500
+      },
+      {
+        "month": "Sep 2026",
+        "salary": 68000,
+        "fixedCommitments": { "rent": 17000, "emis": 7000, "insuranceAndUtilities": 4000, "familySupport": 7000, "totalFixed": 35000 },
+        "variedLifestyle": { "groceriesAndDineOut": 8500, "shoppingAndLeisure": 5000, "adhocSpikes": 3500, "spikeReason": "Portfolio hosting & client domain fees", "totalVaried": 17000 },
+        "netSurplus": 16000
+      },
+      {
+        "month": "Oct 2026",
+        "salary": 68000,
+        "fixedCommitments": { "rent": 17000, "emis": 7000, "insuranceAndUtilities": 4000, "familySupport": 7000, "totalFixed": 35000 },
+        "variedLifestyle": { "groceriesAndDineOut": 8500, "shoppingAndLeisure": 5000, "adhocSpikes": 5700, "spikeReason": "Festive purchases & freelance tax filing", "totalVaried": 19200 },
+        "netSurplus": 13800
+      }
+    ]
+  },
+  {
+    "id": "arjun",
+    "name": "Arjun Mehta",
+    "tagline": "Teacher with Heavy EMIs & Family",
+    "lifecycleStage": "Month 13 Retained User",
+    "badgeColor": "bg-blue-100 text-blue-800 border-blue-300",
+    "age": 36,
+    "profession": "Sr. High School Teacher",
+    "city": "Delhi",
+    "incomePattern": "High fixed EMIs",
+    "monthlySalary": 95000,
+    "payday": 1,
+    "paydayGuessAmount": 25000,
+    "bankName": "SBI Salary Account",
+    "whyThisAmount": "High fixed obligations (₹58,000 EMIs + home expenses) leave ₹11,850 true surplus despite a ₹95,000 salary. Sizing at ₹4,500 on the 5th ensures SIP clears before loan debits cascade.",
+    "fallbackText": "High debt-to-income fallback: SIP restricted below 10% of gross salary to prioritize debt service.",
+    "story": "Has significant fixed EMIs (Home loan ₹32,000, Car loan ₹14,000). Guessed ₹25,000 on payday, but real uncommitted surplus is only ₹11,850. Safe SIP sized him at ₹4,500, achieving a 13-month uninterrupted streak.",
+    "historicalData": [
+      {
+        "month": "May 2026",
+        "salary": 95000,
+        "fixedCommitments": { "rent": 0, "emis": 46000, "insuranceAndUtilities": 6000, "familySupport": 6000, "totalFixed": 58000 },
+        "variedLifestyle": { "groceriesAndDineOut": 11500, "shoppingAndLeisure": 6500, "adhocSpikes": 4000, "spikeReason": "School books & children's annual fees", "totalVaried": 22000 },
+        "netSurplus": 15000
+      },
+      {
+        "month": "Jun 2026",
+        "salary": 95000,
+        "fixedCommitments": { "rent": 0, "emis": 46000, "insuranceAndUtilities": 6000, "familySupport": 6000, "totalFixed": 58000 },
+        "variedLifestyle": { "groceriesAndDineOut": 12000, "shoppingAndLeisure": 7000, "adhocSpikes": 11000, "spikeReason": "Family medical insurance co-pay & tests", "totalVaried": 30000 },
+        "netSurplus": 7000,
+        "isLowestSurplusMonth": true
+      },
+      {
+        "month": "Jul 2026",
+        "salary": 95000,
+        "fixedCommitments": { "rent": 0, "emis": 46000, "insuranceAndUtilities": 6000, "familySupport": 6000, "totalFixed": 58000 },
+        "variedLifestyle": { "groceriesAndDineOut": 11500, "shoppingAndLeisure": 6000, "adhocSpikes": 5000, "spikeReason": "Home repair & appliance maintenance", "totalVaried": 22500 },
+        "netSurplus": 14500
+      },
+      {
+        "month": "Aug 2026",
+        "salary": 95000,
+        "fixedCommitments": { "rent": 0, "emis": 46000, "insuranceAndUtilities": 6000, "familySupport": 6000, "totalFixed": 58000 },
+        "variedLifestyle": { "groceriesAndDineOut": 11500, "shoppingAndLeisure": 6500, "adhocSpikes": 6000, "spikeReason": "Quarterly life insurance term premium", "totalVaried": 24000 },
+        "netSurplus": 13000
+      },
+      {
+        "month": "Sep 2026",
+        "salary": 95000,
+        "fixedCommitments": { "rent": 0, "emis": 46000, "insuranceAndUtilities": 6000, "familySupport": 6000, "totalFixed": 58000 },
+        "variedLifestyle": { "groceriesAndDineOut": 11500, "shoppingAndLeisure": 6500, "adhocSpikes": 5400, "spikeReason": "Routine children activities & tutoring fees", "totalVaried": 23400 },
+        "netSurplus": 13600
+      },
+      {
+        "month": "Oct 2026",
+        "salary": 95000,
+        "fixedCommitments": { "rent": 0, "emis": 46000, "insuranceAndUtilities": 6000, "familySupport": 6000, "totalFixed": 58000 },
+        "variedLifestyle": { "groceriesAndDineOut": 12500, "shoppingAndLeisure": 7500, "adhocSpikes": 9000, "spikeReason": "Diwali family gifts & home painting", "totalVaried": 29000 },
+        "netSurplus": 8000
+      }
+    ]
+  }
+]

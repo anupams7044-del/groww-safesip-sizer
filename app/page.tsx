@@ -10,6 +10,7 @@ import { AAConsentScreen } from "@/components/AAConsentScreen";
 import { SafeSIPSizerView } from "@/components/SafeSIPSizerView";
 import { ConfirmationLedger } from "@/components/ConfirmationLedger";
 import { PersonaFlyerModal } from "@/components/PersonaFlyerModal";
+import { GuidedWalkthroughModal } from "@/components/GuidedWalkthroughModal";
 import { ComplianceFooter } from "@/components/ComplianceFooter";
 
 type AppStep = "normal" | "consent" | "sizer" | "confirmation";
@@ -32,6 +33,7 @@ export default function Home({
   // Active Persona State
   const [selectedPersona, setSelectedPersona] = useState<UserPersona>(initialPersona);
   const [isPersonaFlyerOpen, setIsPersonaFlyerOpen] = useState<boolean>(false);
+  const [isWalkthroughOpen, setIsWalkthroughOpen] = useState<boolean>(false);
 
   // App Navigation Flow: 'normal' -> 'consent' -> 'sizer' -> 'confirmation'
   const [currentStep, setCurrentStep] = useState<AppStep>(initialStep);
@@ -56,6 +58,16 @@ export default function Home({
   useEffect(() => {
     if (typeof window !== "undefined") {
       window.scrollTo(0, 0);
+      const params = new URLSearchParams(window.location.search);
+      const stepParam = params.get("step") as AppStep | null;
+      const personaParam = params.get("persona");
+      if (stepParam && ["normal", "consent", "sizer", "confirmation"].includes(stepParam)) {
+        setCurrentStep(stepParam);
+      }
+      if (personaParam) {
+        const found = PERSONAS.find((p) => p.id === personaParam);
+        if (found) setSelectedPersona(found);
+      }
     }
   }, [currentStep]);
 
@@ -116,6 +128,7 @@ export default function Home({
           onBack={handleBack}
           activePersonaName={selectedPersona.name}
           onOpenPersonaModal={currentStep !== "normal" ? () => setIsPersonaFlyerOpen(true) : undefined}
+          onOpenWalkthrough={() => setIsWalkthroughOpen(true)}
         />
 
         {/* Screen 1: Normal Groww SIP Flow */}
@@ -123,7 +136,12 @@ export default function Home({
           <main className="flex-1 animate-fade-in">
             <NormalSIPFlow
               persona={selectedPersona}
+              personas={PERSONAS}
               onOpenSizerFlow={handleInitiateSizerFlow}
+              onSelectPersonaAndOpenSizer={(p) => {
+                setSelectedPersona(p);
+                setCurrentStep("sizer");
+              }}
               onProceedDirectSIP={handleProceedDirectSIP}
             />
           </main>
@@ -147,9 +165,12 @@ export default function Home({
           <main className="flex-1 animate-fade-in">
             <SafeSIPSizerView
               persona={selectedPersona}
+              personas={PERSONAS}
               sizerResult={sizerResult}
               onConfirmPlan={handleConfirmPlan}
               onSwitchToStandard={() => setCurrentStep("normal")}
+              onSwitchPersona={(p) => setSelectedPersona(p)}
+              onExitToRealFlow={() => setCurrentStep("normal")}
             />
           </main>
         )}
@@ -170,6 +191,13 @@ export default function Home({
 
         {/* Compliance Footer */}
         <ComplianceFooter />
+
+        {/* 🌟 Guided Walkthrough Modal for Evaluators 🌟 */}
+        <GuidedWalkthroughModal
+          isOpen={isWalkthroughOpen}
+          onClose={() => setIsWalkthroughOpen(false)}
+          onNavigateToStep={(step) => setCurrentStep(step)}
+        />
 
         {/* ✈️ Persona Flyer Pop-up (Navigates to second page on selection) ✈️ */}
         <PersonaFlyerModal

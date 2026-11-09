@@ -24,16 +24,16 @@ export function calculateSafeSIP(persona: UserPersona): SizerResult {
   }
 
   // 1. Comfortable (SafeSIP): Allocates ~35-40% of surplus.
-  // Leaves 60-65% buffer in the salary account so ad-hoc spikes (June dental, trips, etc.) NEVER cause a bounce.
-  let comfortableAmount = Math.max(1000, Math.floor((netMonthlySurplus * 0.38) / 500) * 500);
+  // Leaves 60-65% buffer in the salary account so ad-hoc spikes NEVER cause a bounce.
+  let comfortableAmount = Math.max(1000, Math.round((netMonthlySurplus * 0.38) / 500) * 500);
 
   // 2. Stretch Tier: Allocates ~60-65% of surplus.
   // Leaves 35-40% buffer. Higher wealth creation, but requires discipline in spike months.
-  let stretchAmount = Math.max(comfortableAmount + 1000, Math.floor((netMonthlySurplus * 0.63) / 500) * 500);
+  let stretchAmount = Math.max(comfortableAmount + 1000, Math.round((netMonthlySurplus * 0.63) / 500) * 500);
 
   // 3. Risky Tier: Allocates ~85-90% of surplus.
   // Leaves under 15% buffer in bank account. Any unexpected expense guarantees account overdraft or NACH bounce!
-  let riskyAmount = Math.max(stretchAmount + 1000, Math.floor((netMonthlySurplus * 0.90) / 500) * 500);
+  let riskyAmount = Math.max(stretchAmount + 1000, Math.round((netMonthlySurplus * 0.90) / 500) * 500);
 
   // Payday guess deficit check: how much did their naive payday guess exceed their real surplus by?
   const paydayDeficit = Math.max(0, persona.paydayGuessAmount - netMonthlySurplus);

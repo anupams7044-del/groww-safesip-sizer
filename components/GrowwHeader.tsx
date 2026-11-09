@@ -9,6 +9,7 @@ interface GrowwHeaderProps {
   onBack?: () => void;
   activePersonaName?: string;
   onOpenPersonaModal?: () => void;
+  onOpenWalkthrough?: () => void;
   tourTipsOn?: boolean;
   onToggleTourTips?: () => void;
 }
@@ -19,6 +20,7 @@ export const GrowwHeader: React.FC<GrowwHeaderProps> = ({
   onBack,
   activePersonaName,
   onOpenPersonaModal,
+  onOpenWalkthrough,
   tourTipsOn = true,
   onToggleTourTips,
 }) => {
@@ -50,7 +52,19 @@ export const GrowwHeader: React.FC<GrowwHeaderProps> = ({
           )}
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 sm:gap-2">
+          {onOpenWalkthrough && (
+            <button
+              onClick={onOpenWalkthrough}
+              className="flex items-center gap-1 px-2.5 py-1 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white rounded-full text-[10.5px] font-extrabold shadow-xs transition-all cursor-pointer active:scale-95"
+              title="Open Key Features Guided Walkthrough"
+            >
+              <span>✨</span>
+              <span className="hidden sm:inline">Guided Walkthrough</span>
+              <span className="sm:hidden">Tour</span>
+            </button>
+          )}
+
           {activePersonaName && (
             <div
               onClick={onOpenPersonaModal}
