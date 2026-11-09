@@ -165,12 +165,10 @@ export default function Home({
           <main className="flex-1 animate-fade-in">
             <SafeSIPSizerView
               persona={selectedPersona}
-              personas={PERSONAS}
               sizerResult={sizerResult}
               onConfirmPlan={handleConfirmPlan}
               onSwitchToStandard={() => setCurrentStep("normal")}
-              onSwitchPersona={(p) => setSelectedPersona(p)}
-              onExitToRealFlow={() => setCurrentStep("normal")}
+              onBackToConsent={() => setCurrentStep("consent")}
             />
           </main>
         )}

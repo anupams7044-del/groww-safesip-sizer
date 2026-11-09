@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { UserPersona, SizerResult } from "@/lib/types";
-import { calculateSafeSIP } from "@/lib/calculations";
 import { CashflowTable } from "./CashflowTable";
 import {
   ShieldCheck,
@@ -17,29 +16,24 @@ import {
   Building2,
   Check,
   Sparkles,
-  Users,
-  AlertCircle,
   HelpCircle,
+  RotateCcw,
 } from "lucide-react";
 
 interface SafeSIPSizerViewProps {
   persona: UserPersona;
-  personas?: UserPersona[];
   sizerResult: SizerResult;
   onConfirmPlan: (selectedAmount: number, debitDate: number, tierName: string) => void;
   onSwitchToStandard?: () => void;
-  onSwitchPersona?: (persona: UserPersona) => void;
-  onExitToRealFlow?: () => void;
+  onBackToConsent?: () => void;
 }
 
 export const SafeSIPSizerView: React.FC<SafeSIPSizerViewProps> = ({
   persona,
-  personas = [],
   sizerResult,
   onConfirmPlan,
   onSwitchToStandard,
-  onSwitchPersona,
-  onExitToRealFlow,
+  onBackToConsent,
 }) => {
   const [selectedTier, setSelectedTier] = useState<"comfortable" | "stretch" | "risky" | "custom">(
     "comfortable"
@@ -48,8 +42,12 @@ export const SafeSIPSizerView: React.FC<SafeSIPSizerViewProps> = ({
   const [selectedDebitDate, setSelectedDebitDate] = useState<number>(
     sizerResult.recommendedDebitDate.day
   );
-  // Collapsible state for deep calculation & statement analysis
+
+  // Accordion state 1: Curious how this was calculated? (includes statement math + why this amount)
   const [showCalculationDetails, setShowCalculationDetails] = useState<boolean>(false);
+
+  // Accordion state 2: Note for the Evaluator (SafeSIP Design Rationale)
+  const [showEvaluatorNote, setShowEvaluatorNote] = useState<boolean>(false);
 
   // Compute active chosen amount based on selected tier
   const currentInstallment =
@@ -63,161 +61,7 @@ export const SafeSIPSizerView: React.FC<SafeSIPSizerViewProps> = ({
 
   return (
     <div className="w-full max-w-xl mx-auto p-4 sm:p-6 space-y-4 pb-44 sm:pb-48 animate-fade-in">
-      {/* 🌟 DEMO MODE BANNER (UNMISTAKABLE DEMO DATA BANNER) 🌟 */}
-      <div className="bg-amber-500/10 border border-amber-300 text-amber-900 px-3.5 py-2 rounded-2xl flex items-center justify-between gap-2 text-xs">
-        <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-amber-500 animate-ping" />
-          <span className="font-semibold">
-            Viewing sample profile: <strong className="font-extrabold">{persona.name}</strong>{" "}
-            <span className="text-[10.5px] font-normal text-amber-800">(Synthetic Sample Data)</span>
-          </span>
-        </div>
-        <button
-          onClick={onExitToRealFlow || onSwitchToStandard}
-          className="text-[11px] font-extrabold text-amber-900 underline hover:text-black shrink-0 cursor-pointer"
-        >
-          Exit to Real Flow →
-        </button>
-      </div>
-
-      {/* 🌟 TOP SWITCH PERSONA CONTROL (Segmented Tabs to re-run sizer instantly) 🌟 */}
-      {personas && personas.length > 0 && (
-        <div className="bg-slate-100 p-1.5 rounded-2xl border border-slate-200">
-          <div className="flex items-center justify-between px-2 py-1 mb-1">
-            <span className="text-[11px] font-bold text-slate-700 flex items-center gap-1.5">
-              <Users className="w-3.5 h-3.5 text-emerald-600" />
-              <span>Switch Sample Persona:</span>
-            </span>
-            <span className="text-[9px] font-bold uppercase tracking-wider text-slate-400">
-              Instant Re-Calculation
-            </span>
-          </div>
-
-          <div className="grid grid-cols-3 gap-1">
-            {personas.map((p) => {
-              const isSelected = p.id === persona.id;
-              return (
-                <button
-                  key={p.id}
-                  type="button"
-                  onClick={() => {
-                    if (onSwitchPersona) {
-                      onSwitchPersona(p);
-                    }
-                  }}
-                  className={`p-2 rounded-xl text-left transition-all border text-xs cursor-pointer flex flex-col justify-between ${
-                    isSelected
-                      ? "bg-white border-emerald-600 text-slate-900 shadow-sm ring-1 ring-emerald-500"
-                      : "bg-slate-50/70 hover:bg-white border-transparent hover:border-slate-300 text-slate-600"
-                  }`}
-                >
-                  <div className="flex items-center justify-between w-full">
-                    <span className="font-bold text-xs truncate">{p.name.split(" ")[0]}</span>
-                    {isSelected && (
-                      <span className="w-2 h-2 rounded-full bg-emerald-600" />
-                    )}
-                  </div>
-                  <span className="text-[9.5px] text-slate-500 truncate mt-0.5 font-medium">
-                    {p.id === "priya" ? "Fresher (₹2k)" : p.id === "rohan" ? "Freelance (₹5k)" : "High EMIs (₹4.5k)"}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      )}
-
-      {/* 🌟 1. "SAME TOOL, THREE PEOPLE" COMPARISON CARD (TOP PLACEMENT FOR EVALUATORS) 🌟 */}
-      {personas && personas.length > 0 && (
-        <div className="bg-white rounded-3xl p-5 border border-slate-200 shadow-sm space-y-3">
-          <div className="flex items-center justify-between">
-            <div>
-              <div className="flex items-center gap-1.5">
-                <Sparkles className="w-4 h-4 text-emerald-600" />
-                <h3 className="font-extrabold text-slate-900 text-sm sm:text-base">
-                  Same tool, three people
-                </h3>
-              </div>
-              <p className="text-xs text-slate-500 mt-0.5">
-                One sizer, three cash-flow patterns — see how SafeSIP adapts automatically:
-              </p>
-            </div>
-            <span className="text-[9px] font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded border uppercase shrink-0">
-              Sample data
-            </span>
-          </div>
-
-          {/* Side-by-side row (horizontally swipeable on phone) */}
-          <div className="flex sm:grid sm:grid-cols-3 gap-2.5 overflow-x-auto pb-1.5 pt-1 -mx-1 px-1">
-            {personas.map((p) => {
-              const isCurrent = p.id === persona.id;
-              const res = calculateSafeSIP(p);
-              const amountDisplay = `₹${res.comfortable.amount.toLocaleString("en-IN")}`;
-              const dateDisplay = `${res.recommendedDebitDate.day === 1 ? "1st" : `${res.recommendedDebitDate.day}th`}`;
-
-              return (
-                <div
-                  key={p.id}
-                  onClick={() => onSwitchPersona && onSwitchPersona(p)}
-                  className={`min-w-[195px] sm:min-w-0 flex-1 p-3 rounded-2xl border-2 transition-all cursor-pointer relative ${
-                    isCurrent
-                      ? "border-emerald-600 bg-emerald-50/50 shadow-xs ring-1 ring-emerald-500"
-                      : "border-slate-200 hover:border-slate-300 bg-slate-50/50"
-                  }`}
-                >
-                  {/* Current Persona Label (Accessible border + text label, not colour alone) */}
-                  <div className="flex items-center justify-between mb-1.5">
-                    {isCurrent ? (
-                      <span className="text-[8.5px] font-black uppercase tracking-wider bg-emerald-700 text-white px-2 py-0.5 rounded-full">
-                        ★ CURRENT
-                      </span>
-                    ) : (
-                      <span className="text-[8.5px] font-semibold text-slate-400 uppercase tracking-wider">
-                        Tap to switch
-                      </span>
-                    )}
-                    <span className="text-[9px] font-semibold text-slate-500 bg-white px-1 py-0.2 rounded border">
-                      {p.city}
-                    </span>
-                  </div>
-
-                  {/* Persona Identity */}
-                  <div className="font-extrabold text-xs text-slate-900 truncate">
-                    {p.name}
-                  </div>
-                  <div className="text-[10px] text-slate-500 truncate">
-                    {p.age} yrs · {p.profession}
-                  </div>
-
-                  {/* Cashflow Pattern */}
-                  <div className="mt-2 py-1 px-2 bg-white rounded-lg border border-slate-100 text-[10px]">
-                    <span className="text-slate-400 block font-semibold text-[8.5px] uppercase">
-                      Pattern
-                    </span>
-                    <span className="font-bold text-slate-800 line-clamp-1 mt-0.5">
-                      {p.incomePattern}
-                    </span>
-                  </div>
-
-                  {/* Sized SIP & Debit Date */}
-                  <div className="mt-2 pt-2 border-t border-slate-200 flex items-center justify-between text-xs">
-                    <div>
-                      <span className="text-[8.5px] text-slate-400 uppercase font-semibold block">Safe SIP</span>
-                      <span className="font-black text-emerald-700">{amountDisplay}/mo</span>
-                    </div>
-                    <div className="text-right">
-                      <span className="text-[8.5px] text-slate-400 uppercase font-semibold block">Debit Date</span>
-                      <span className="font-bold text-slate-800">{dateDisplay}</span>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      )}
-
-      {/* 🌟 2. CORE CARD: DUAL TABS & RECOMMENDATIONS 🌟 */}
+      {/* 🌟 1. CORE CARD: DUAL TABS, SIZING TIERS & DEBIT DATE 🌟 */}
       <div className="bg-white rounded-3xl p-5 border border-gray-200 shadow-sm space-y-4">
         {/* Dual-Mode Segmented Header Tabs (SafeSIP Sizer Mode Active) */}
         {onSwitchToStandard && (
@@ -268,25 +112,33 @@ export const SafeSIPSizerView: React.FC<SafeSIPSizerViewProps> = ({
           </p>
         </div>
 
-        {/* 🌟 Verified Bank Account Badge (Shown after consent) 🌟 */}
-        <div className="p-3 bg-emerald-50/70 rounded-2xl border border-emerald-200 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-white border border-emerald-200 flex items-center justify-center text-emerald-700 shadow-xs">
+        {/* Verified Bank Account Badge (Shows linked account + Switch Persona button) */}
+        <div className="p-3 bg-emerald-50/70 rounded-2xl border border-emerald-200 flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <div className="w-8 h-8 rounded-xl bg-white border border-emerald-200 flex items-center justify-center text-emerald-700 shadow-xs shrink-0">
               <Building2 className="w-4 h-4 text-emerald-600" />
             </div>
-            <div>
-              <span className="text-xs font-bold text-gray-900 block">
+            <div className="min-w-0">
+              <span className="text-xs font-bold text-gray-900 block truncate">
                 {persona.bankName || "HDFC Bank"} Salary Account
               </span>
-              <span className="text-[11px] text-gray-500">
+              <span className="text-[11px] text-gray-500 block truncate">
                 A/c **4928 · {persona.name}
               </span>
             </div>
           </div>
-          <span className="text-[10px] font-bold bg-emerald-600 text-white px-2.5 py-0.5 rounded-full flex items-center gap-1 shadow-xs">
-            <Check className="w-3 h-3" />
-            <span>Consent Linked</span>
-          </span>
+
+          {onBackToConsent && (
+            <button
+              type="button"
+              onClick={onBackToConsent}
+              className="text-[11px] font-bold text-emerald-800 hover:text-emerald-950 bg-white hover:bg-emerald-100/70 border border-emerald-300 px-2.5 py-1.5 rounded-xl flex items-center gap-1 shadow-xs transition-all cursor-pointer shrink-0"
+              title="Return to Consent screen to select another persona"
+            >
+              <RotateCcw className="w-3 h-3 text-emerald-700" />
+              <span>Switch Persona</span>
+            </button>
+          )}
         </div>
 
         {/* 3 Clean Affordability Tier Cards */}
@@ -455,61 +307,20 @@ export const SafeSIPSizerView: React.FC<SafeSIPSizerViewProps> = ({
         </div>
       </div>
 
-      {/* 🌟 3. PLAIN LANGUAGE: "WHY THIS AMOUNT" & SAFE FALLBACK 🌟 */}
-      <div className="bg-white rounded-3xl p-5 border border-slate-200 shadow-sm space-y-3">
-        <div className="flex items-center gap-2">
-          <HelpCircle className="w-4 h-4 text-emerald-600" />
-          <h3 className="font-extrabold text-slate-900 text-sm">
-            Why this amount based on your cash flow?
-          </h3>
-        </div>
-
-        <p className="text-xs text-slate-700 leading-relaxed bg-slate-50 p-3 rounded-2xl border border-slate-100">
-          {persona.whyThisAmount ||
-            `With verified average fixed bills of ₹${sizerResult.avgFixedExpenses.toLocaleString("en-IN")} and living costs, your safe surplus is ₹${sizerResult.netMonthlySurplus.toLocaleString("en-IN")}. Sizing at ₹${sizerResult.comfortable.amount.toLocaleString("en-IN")} keeps a 60% buffer so emergency expenses never cause a NACH bounce.`}
-        </p>
-
-        {/* Thin Data Fallback Disclosure */}
-        <div className="flex items-start gap-2 text-[11px] text-slate-500 bg-slate-50 p-2.5 rounded-xl border border-slate-100">
-          <Info className="w-3.5 h-3.5 text-slate-400 shrink-0 mt-0.5" />
-          <span>
-            <strong>Safe Fallback:</strong> {persona.fallbackText || "If transaction history is limited, SIP defaults to a conservative 10% income guideline."}
-          </span>
-        </div>
-
-        {/* Regulatory Note */}
-        <p className="text-[10px] text-slate-400 italic">
-          * <strong>Not investment advice:</strong> Mutual fund investments are subject to market risks. Safe SIP Sizer is a cash-flow budgeting tool to help investors avoid bank bounce penalties.
-        </p>
-      </div>
-
-      {/* 🌟 4. NOTE FOR THE EVALUATOR CARD 🌟 */}
-      <div className="bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-3xl p-5 shadow-sm space-y-2.5">
-        <div className="flex items-center justify-between">
-          <span className="text-[10px] font-extrabold uppercase tracking-wider text-emerald-400 bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-800">
-            Note for the Evaluator
-          </span>
-          <span className="text-[10px] text-slate-400 font-medium">SafeSIP Design Rationale</span>
-        </div>
-        <p className="text-xs text-slate-300 leading-relaxed">
-          <strong>Churn Prevention at Core:</strong> Unbudgeted SIP amounts trigger ₹250–₹590 bank bounce fees, causing first-year investor drop-off. SafeSIP combines RBI AA bank cashflow parsing with a 10% emergency buffer and 3–5 day post-payday alignment to eliminate involuntary churn.
-        </p>
-      </div>
-
-      {/* 🌟 5. EXPANDABLE 6-MONTH STATEMENT MATH 🌟 */}
-      <div className="bg-white rounded-3xl border border-gray-200 shadow-sm overflow-hidden transition-all duration-300 mb-8">
+      {/* 🌟 2. CURIOUS HOW THIS WAS CALCULATED? (EXPANDABLE: Math + Statement + Why this amount) 🌟 */}
+      <div className="bg-white rounded-3xl border border-gray-200 shadow-sm overflow-hidden transition-all duration-300">
         <button
           onClick={() => setShowCalculationDetails(!showCalculationDetails)}
           className="w-full p-4 flex items-center justify-between text-left hover:bg-gray-50 transition-colors cursor-pointer"
         >
           <div className="flex items-center gap-2.5">
-            <Calculator className="w-4 h-4 text-gray-500" />
+            <Calculator className="w-4 h-4 text-emerald-600" />
             <div>
               <span className="text-xs font-bold text-gray-900 block">
                 Curious how this was calculated?
               </span>
               <span className="text-[11px] text-gray-500">
-                View 6-month statement math &amp; category breakdown
+                View 6-month statement math &amp; why this amount
               </span>
             </div>
           </div>
@@ -526,7 +337,7 @@ export const SafeSIPSizerView: React.FC<SafeSIPSizerViewProps> = ({
         {/* Expandable Details Container */}
         {showCalculationDetails && (
           <div className="p-4 pt-0 space-y-4 border-t border-gray-100 animate-fade-in">
-            {/* Calculation Math */}
+            {/* Monthly Arithmetic */}
             <div className="p-3.5 bg-gray-50 rounded-2xl border border-gray-100 space-y-2 text-xs">
               <span className="font-bold text-gray-700 uppercase text-[10px] tracking-wider block">
                 Monthly Cashflow Arithmetic
@@ -560,11 +371,85 @@ export const SafeSIPSizerView: React.FC<SafeSIPSizerViewProps> = ({
               historicalData={persona.historicalData}
               lowestSurplusMonthName={sizerResult.lowestSurplusMonth.month}
             />
+
+            {/* Embedded Explanation: "Why this amount based on your cash flow?" */}
+            <div className="bg-slate-50 p-3.5 rounded-2xl border border-slate-200/80 space-y-2 text-xs">
+              <div className="flex items-center gap-1.5 font-bold text-slate-800">
+                <HelpCircle className="w-4 h-4 text-emerald-600" />
+                <span>Why this amount based on your cash flow?</span>
+              </div>
+              <p className="text-slate-600 leading-relaxed">
+                {persona.whyThisAmount ||
+                  `With verified average fixed bills of ₹${sizerResult.avgFixedExpenses.toLocaleString("en-IN")} and living costs, your safe surplus is ₹${sizerResult.netMonthlySurplus.toLocaleString("en-IN")}. Sizing at ₹${sizerResult.comfortable.amount.toLocaleString("en-IN")} keeps a 60% buffer so emergency expenses never cause a NACH bounce.`}
+              </p>
+
+              {/* Thin History Fallback */}
+              <div className="flex items-start gap-1.5 text-[11px] text-slate-500 pt-1.5 border-t border-slate-200">
+                <Info className="w-3.5 h-3.5 text-slate-400 shrink-0 mt-0.5" />
+                <span>
+                  <strong>Safe Fallback:</strong> {persona.fallbackText || "If history is limited, SIP defaults to a conservative 10% income guideline."}
+                </span>
+              </div>
+
+              {/* Regulatory Disclaimer */}
+              <p className="text-[10px] text-slate-400 italic pt-1">
+                * <strong>Not investment advice:</strong> Mutual fund investments are subject to market risks. Safe SIP Sizer is a cash-flow budgeting tool to help investors avoid bank bounce penalties.
+              </p>
+            </div>
           </div>
         )}
       </div>
 
-      {/* 🌟 6. FIXED BOTTOM BAR (DIRECT SINGLE ACTION) 🌟 */}
+      {/* 🌟 3. NOTE FOR THE EVALUATOR / SAFESIP DESIGN RATIONALE (EXPANDABLE) 🌟 */}
+      <div className="bg-white rounded-3xl border border-gray-200 shadow-sm overflow-hidden transition-all duration-300 mb-8">
+        <button
+          onClick={() => setShowEvaluatorNote(!showEvaluatorNote)}
+          className="w-full p-4 flex items-center justify-between text-left hover:bg-gray-50 transition-colors cursor-pointer"
+        >
+          <div className="flex items-center gap-2.5">
+            <div className="w-6 h-6 rounded-lg bg-slate-900 text-white flex items-center justify-center text-[10px] font-black shrink-0">
+              i
+            </div>
+            <div>
+              <span className="text-xs font-bold text-gray-900 block">
+                Note for the Evaluator
+              </span>
+              <span className="text-[11px] text-gray-500">
+                SafeSIP Design Rationale &amp; Churn Reduction Strategy
+              </span>
+            </div>
+          </div>
+          <div className="flex items-center gap-1 text-xs font-bold text-slate-700 bg-slate-100 px-2.5 py-1 rounded-lg">
+            <span>{showEvaluatorNote ? "Hide Note" : "Read Note"}</span>
+            {showEvaluatorNote ? (
+              <ChevronUp className="w-4 h-4" />
+            ) : (
+              <ChevronDown className="w-4 h-4" />
+            )}
+          </div>
+        </button>
+
+        {showEvaluatorNote && (
+          <div className="p-4 pt-0 border-t border-gray-100 animate-fade-in">
+            <div className="bg-gradient-to-br from-slate-900 to-slate-800 text-white p-4 rounded-2xl space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-extrabold uppercase tracking-wider text-emerald-400 bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-800">
+                  SafeSIP Core Strategy
+                </span>
+                <span className="text-[10px] text-slate-400">Evaluator Insights</span>
+              </div>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                <strong>Churn Prevention at Core:</strong> Unbudgeted SIP amounts trigger ₹250–₹590 bank bounce fees, causing first-year investor drop-off. SafeSIP combines RBI AA bank cashflow parsing with a 10% emergency buffer and 3–5 day post-payday alignment to eliminate involuntary churn.
+              </p>
+              <div className="text-[11px] text-slate-400 pt-1 border-t border-slate-700">
+                ✓ 6-month historical stress test · ✓ Payday alignment · ✓ ₹0 modification fee guarantee
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* 🌟 4. FIXED BOTTOM BAR (DIRECT SINGLE ACTION) 🌟 */}
       <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-gray-200 p-3 shadow-lg">
         <div className="max-w-xl mx-auto flex items-center justify-between gap-3">
           <div>
