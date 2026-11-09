@@ -155,7 +155,7 @@ export default function Home({
               confirmedDate={confirmedPlan.debitDate}
               tierName={confirmedPlan.tier}
               onResetFlow={() => setCurrentStep("normal")}
-              onOpenPersonaModal={() => setIsPersonaFlyerOpen(true)}
+              onOpenPersonaModal={() => setCurrentStep("consent")}
             />
           </main>
         )}
@@ -163,7 +163,7 @@ export default function Home({
         {/* Compliance Footer */}
         <ComplianceFooter />
 
-        {/* ✈️ Persona Flyer Pop-up (Accessible from Screen 4 Switch Persona) ✈️ */}
+        {/* ✈️ Persona Flyer Pop-up (Navigates to second page on selection) ✈️ */}
         <PersonaFlyerModal
           isOpen={isPersonaFlyerOpen}
           onClose={() => setIsPersonaFlyerOpen(false)}
@@ -172,6 +172,7 @@ export default function Home({
           onSelectPersona={(p) => {
             setSelectedPersona(p);
             setIsPersonaFlyerOpen(false);
+            setCurrentStep("consent");
           }}
         />
       </div>
