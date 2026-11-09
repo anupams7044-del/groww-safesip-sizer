@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { UserPersona } from "@/lib/types";
 import { Sparkles, ArrowRight, ShieldCheck, Check } from "lucide-react";
-import { FloatingGuideTooltip } from "./FloatingGuideTooltip";
 
 interface NormalSIPFlowProps {
   persona: UserPersona;
@@ -44,70 +43,56 @@ export const NormalSIPFlow: React.FC<NormalSIPFlowProps> = ({
   const amountPresets = [2000, 5000, 10000, 15000, 25000];
   const dateOptions = [1, 5, 10, 15, 25];
 
-  const handleSizerClick = () => {
-    try {
-      if (typeof window !== "undefined") {
-        localStorage.setItem("groww_guide_home", "true");
-      }
-    } catch {}
-    onOpenSizerFlow();
-  };
-
   return (
     <div className="w-full max-w-xl mx-auto p-4 sm:p-6 space-y-4 pb-24 transition-all duration-300">
-      {/* 🌟 1. TOP BANNER (Groww Native Card with Non-Blocking Floating Pop-up) 🌟 */}
-      <div className="bg-white rounded-2xl p-4 border border-blue-200/90 shadow-xs flex flex-col gap-3 transition-all hover:shadow-sm relative">
-        <div className="flex items-start gap-2.5">
-          <div className="w-8 h-8 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center shrink-0 text-blue-600 mt-0.5">
-            <Sparkles className="w-4 h-4 text-blue-600" />
-          </div>
-          <div className="flex-1">
-            <h3 className="font-bold text-gray-900 text-xs sm:text-sm leading-snug">
-              Missed a SIP installment or unsure how much you can safely invest?
-            </h3>
-            <p className="text-[10.5px] sm:text-[11px] text-gray-500 leading-normal mt-0.5">
-              Use SIP Sizer to right-size your monthly SIP from your last 6 months bank statement and avoid ₹250–₹590 bank NACH bounce fees.
-            </p>
-          </div>
-        </div>
-
-        {/* CTA Container with Floating Guide Tooltip */}
-        <div className="relative self-stretch sm:self-end flex flex-col items-end">
-          {/* 🌟 Floating One-Time Pop-up aimed at CTA (Non-Blocking) 🌟 */}
-          <FloatingGuideTooltip
-            storageKey="groww_guide_home"
-            type="home"
-            position="bottom"
-            onCTAClick={handleSizerClick}
-          />
-
-          <button
-            id="tour-step1-cta"
-            onClick={handleSizerClick}
-            className="w-full sm:w-auto py-2.5 px-4 bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-extrabold text-xs sm:text-sm rounded-xl shadow-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer shrink-0"
-          >
-            <span>Switch to SIP Sizer</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </button>
-        </div>
-      </div>
-
-      {/* 🌟 2. MAIN NORMAL SIP CARD (Exact Match to Screenshot) 🌟 */}
+      {/* 🌟 MAIN SIP CARD WITH DUAL-MODE SEGMENTED HEADER TABS 🌟 */}
       <div className="bg-white rounded-2xl p-5 sm:p-6 border border-gray-200 shadow-sm space-y-5">
-        {/* Card Header */}
-        <div className="flex items-start justify-between">
-          <div>
-            <h2 className="font-extrabold text-gray-900 text-base sm:text-lg">
-              Start a Monthly Mutual Fund SIP
-            </h2>
-            <p className="text-xs text-gray-500 font-medium mt-0.5">
-              Direct Plan · 0% Commission · Instant 1-Tap Setup
+        {/* Card Title & Subtitle */}
+        <div>
+          <h2 className="font-extrabold text-gray-900 text-base sm:text-lg">
+            Start a Monthly Mutual Fund SIP
+          </h2>
+          <p className="text-xs text-gray-500 font-medium mt-0.5">
+            Direct Plan · 0% Commission · Instant 1-Tap Setup
+          </p>
+        </div>
+
+        {/* 🌟 Dual-Mode Segmented Header Tabs (Option C: Eliminates Banner Blindness) 🌟 */}
+        <div className="w-full bg-slate-100 p-1.5 rounded-2xl flex flex-col sm:flex-row gap-1.5 border border-slate-200/80">
+          {/* Tab 1: Standard 1-Tap SIP (Active Default) */}
+          <button
+            type="button"
+            className="flex-1 p-2.5 rounded-xl bg-white text-slate-900 border-2 border-[#00d09c] shadow-xs text-left transition-all cursor-default"
+          >
+            <div className="flex items-center gap-1.5 font-bold text-xs sm:text-sm text-slate-900">
+              <span>⚡</span>
+              <span>Standard 1-Tap SIP</span>
+            </div>
+            <p className="text-[10px] sm:text-[10.5px] text-slate-500 font-medium mt-0.5">
+              Instant setup • Pick any amount &amp; date
             </p>
-          </div>
-          <span className="text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-1 rounded-full flex items-center gap-1.5 shrink-0">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-            Normal SIP Flow
-          </span>
+          </button>
+
+          {/* Tab 2: SafeSIP Sizer Mode (Interactive Mode Switcher) */}
+          <button
+            type="button"
+            onClick={onOpenSizerFlow}
+            className="flex-1 p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200/70 text-left transition-all cursor-pointer group border-2 border-transparent hover:border-slate-300"
+          >
+            <div className="flex items-center justify-between gap-1">
+              <div className="flex items-center gap-1.5 font-bold text-xs sm:text-sm text-slate-800 group-hover:text-emerald-700 transition-colors">
+                <span>✨</span>
+                <span>SafeSIP Sizer</span>
+              </div>
+              <span className="text-[9px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded-full border border-emerald-200">
+                Cashflow-Guided
+              </span>
+            </div>
+            <div className="flex items-center gap-1 text-[10px] sm:text-[10.5px] text-emerald-700 font-semibold mt-0.5">
+              <span className="truncate">6M Bank Analysis • Avoid ₹250–₹590 NACH Fees</span>
+              <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform shrink-0" />
+            </div>
+          </button>
         </div>
 
         {/* Section 1: Select Category */}
@@ -140,11 +125,21 @@ export const NormalSIPFlow: React.FC<NormalSIPFlowProps> = ({
           </div>
         </div>
 
-        {/* Section 2: Monthly SIP Amount */}
+        {/* Section 2: Monthly SIP Amount with Point-of-Friction Micro-Nudge */}
         <div className="space-y-2">
-          <label className="block text-[11px] font-bold uppercase tracking-wider text-gray-500">
-            2. Monthly SIP Amount (₹)
-          </label>
+          <div className="flex items-center justify-between gap-2 flex-wrap">
+            <label className="block text-[11px] font-bold uppercase tracking-wider text-gray-500">
+              2. Monthly SIP Amount (₹)
+            </label>
+            {/* Contextual Micro-Nudge at Point of Friction */}
+            <button
+              type="button"
+              onClick={onOpenSizerFlow}
+              className="text-[11px] font-semibold text-[#00b386] hover:text-[#008f6b] hover:underline flex items-center gap-1 cursor-pointer transition-colors"
+            >
+              <span>✨ Unsure how much is safe? Use SIP Sizer →</span>
+            </button>
+          </div>
 
           {/* Large Clean Input Box */}
           <div className="relative rounded-xl border border-gray-200 focus-within:border-emerald-500 focus-within:ring-1 focus-within:ring-emerald-500 transition-all bg-white">
@@ -181,7 +176,7 @@ export const NormalSIPFlow: React.FC<NormalSIPFlowProps> = ({
           </div>
         </div>
 
-        {/* Section 3: Monthly SIP Debit Date */}
+        {/* Section 3: Monthly SIP Debit Date (Typo Fixed: '1st' instead of '1th') */}
         <div className="space-y-2">
           <div className="flex items-center justify-between">
             <label className="block text-[11px] font-bold uppercase tracking-wider text-gray-500">
@@ -205,7 +200,7 @@ export const NormalSIPFlow: React.FC<NormalSIPFlowProps> = ({
                       : "border-gray-200 text-gray-700 hover:border-gray-300 hover:bg-gray-50"
                   }`}
                 >
-                  {d}th
+                  {d === 1 ? "1st" : `${d}th`}
                 </button>
               );
             })}

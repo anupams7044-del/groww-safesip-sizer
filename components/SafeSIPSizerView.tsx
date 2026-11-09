@@ -19,12 +19,14 @@ interface SafeSIPSizerViewProps {
   persona: UserPersona;
   sizerResult: SizerResult;
   onConfirmPlan: (selectedAmount: number, debitDate: number, tierName: string) => void;
+  onSwitchToStandard?: () => void;
 }
 
 export const SafeSIPSizerView: React.FC<SafeSIPSizerViewProps> = ({
   persona,
   sizerResult,
   onConfirmPlan,
+  onSwitchToStandard,
 }) => {
   const [selectedTier, setSelectedTier] = useState<"comfortable" | "stretch" | "risky" | "custom">(
     "comfortable"
@@ -50,6 +52,45 @@ export const SafeSIPSizerView: React.FC<SafeSIPSizerViewProps> = ({
     <div className="w-full max-w-xl mx-auto p-4 sm:p-6 space-y-4 pb-44 sm:pb-48 animate-fade-in">
       {/* 🌟 1. CORE SECTION: CLEAN RECOMMENDATION CARDS (ZERO COGNITIVE LOAD) 🌟 */}
       <div className="bg-white rounded-3xl p-5 border border-gray-200 shadow-sm space-y-4">
+        {/* Dual-Mode Segmented Header Tabs (SafeSIP Sizer Mode Active) */}
+        {onSwitchToStandard && (
+          <div className="w-full bg-slate-100 p-1.5 rounded-2xl flex flex-col sm:flex-row gap-1.5 border border-slate-200/80">
+            {/* Tab 1: Standard 1-Tap SIP (Clickable to switch back) */}
+            <button
+              type="button"
+              onClick={onSwitchToStandard}
+              className="flex-1 p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200/70 text-left transition-all cursor-pointer group border-2 border-transparent hover:border-slate-300"
+            >
+              <div className="flex items-center gap-1.5 font-bold text-xs sm:text-sm text-slate-800 group-hover:text-emerald-700 transition-colors">
+                <span>⚡</span>
+                <span>Standard 1-Tap SIP</span>
+              </div>
+              <p className="text-[10px] sm:text-[10.5px] text-slate-500 font-medium mt-0.5">
+                Instant setup • Pick any amount &amp; date
+              </p>
+            </button>
+
+            {/* Tab 2: SafeSIP Sizer Mode (Active) */}
+            <button
+              type="button"
+              className="flex-1 p-2.5 rounded-xl bg-white text-slate-900 border-2 border-[#00d09c] shadow-xs text-left transition-all cursor-default"
+            >
+              <div className="flex items-center justify-between gap-1">
+                <div className="flex items-center gap-1.5 font-bold text-xs sm:text-sm text-slate-900">
+                  <span>✨</span>
+                  <span>SafeSIP Sizer</span>
+                </div>
+                <span className="text-[9px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded-full border border-emerald-200">
+                  Active Mode
+                </span>
+              </div>
+              <p className="text-[10px] sm:text-[10.5px] text-emerald-700 font-semibold mt-0.5">
+                6M Bank Analysis • Zero Bounce Risk
+              </p>
+            </button>
+          </div>
+        )}
+
         {/* Minimal Header */}
         <div>
           <h2 className="font-extrabold text-gray-900 text-lg sm:text-xl">
@@ -211,7 +252,7 @@ export const SafeSIPSizerView: React.FC<SafeSIPSizerViewProps> = ({
                     : "bg-white text-gray-700 border-gray-200 hover:border-gray-300"
                 }`}
               >
-                {d}th
+                {d === 1 ? "1st" : `${d}th`}
               </button>
             ))}
           </div>

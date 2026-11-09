@@ -142,6 +142,7 @@ export default function Home({
               persona={selectedPersona}
               sizerResult={sizerResult}
               onConfirmPlan={handleConfirmPlan}
+              onSwitchToStandard={() => setCurrentStep("normal")}
             />
           </main>
         )}
