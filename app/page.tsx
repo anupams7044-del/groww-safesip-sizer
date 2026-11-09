@@ -9,6 +9,7 @@ import { NormalSIPFlow } from "@/components/NormalSIPFlow";
 import { AAConsentScreen } from "@/components/AAConsentScreen";
 import { SafeSIPSizerView } from "@/components/SafeSIPSizerView";
 import { ConfirmationLedger } from "@/components/ConfirmationLedger";
+import { PersonaFlyerModal } from "@/components/PersonaFlyerModal";
 import { ComplianceFooter } from "@/components/ComplianceFooter";
 
 type AppStep = "normal" | "consent" | "sizer" | "confirmation";
@@ -16,7 +17,7 @@ type AppStep = "normal" | "consent" | "sizer" | "confirmation";
 export default function Home({
   searchParams,
 }: {
-  searchParams?: { step?: string };
+  searchParams?: { step?: string; persona?: string };
 }) {
   const initialStep: AppStep =
     searchParams?.step === "consent" ||
@@ -25,8 +26,12 @@ export default function Home({
       ? (searchParams.step as AppStep)
       : "normal";
 
-  // Active Persona (Default Priya Nair, Day 0 first-time earner)
-  const [selectedPersona] = useState<UserPersona>(PERSONAS[0]);
+  const initialPersona =
+    PERSONAS.find((p) => p.id === searchParams?.persona) || PERSONAS[0];
+
+  // Active Persona State
+  const [selectedPersona, setSelectedPersona] = useState<UserPersona>(initialPersona);
+  const [isPersonaFlyerOpen, setIsPersonaFlyerOpen] = useState<boolean>(false);
 
   // App Navigation Flow: 'normal' -> 'consent' -> 'sizer' -> 'confirmation'
   const [currentStep, setCurrentStep] = useState<AppStep>(initialStep);
@@ -102,6 +107,8 @@ export default function Home({
           }
           showBack={currentStep !== "normal"}
           onBack={handleBack}
+          activePersonaName={selectedPersona.name}
+          onOpenPersonaModal={currentStep !== "normal" ? () => setIsPersonaFlyerOpen(true) : undefined}
         />
 
         {/* Screen 1: Normal Groww SIP Flow */}
@@ -115,11 +122,13 @@ export default function Home({
           </main>
         )}
 
-        {/* Screen 2: Dedicated RBI AA Consent Screen */}
+        {/* Screen 2: Dedicated RBI AA Consent Screen (With 3-Persona Choice before consent) */}
         {currentStep === "consent" && (
           <main className="flex-1 animate-fade-in">
             <AAConsentScreen
               persona={selectedPersona}
+              personas={PERSONAS}
+              onSelectPersona={(p) => setSelectedPersona(p)}
               onApproveConsent={handleApproveAAConsent}
               onBackToNormal={handleBack}
             />
@@ -146,13 +155,25 @@ export default function Home({
               confirmedDate={confirmedPlan.debitDate}
               tierName={confirmedPlan.tier}
               onResetFlow={() => setCurrentStep("normal")}
-              onOpenPersonaModal={() => setCurrentStep("normal")}
+              onOpenPersonaModal={() => setIsPersonaFlyerOpen(true)}
             />
           </main>
         )}
 
         {/* Compliance Footer */}
         <ComplianceFooter />
+
+        {/* ✈️ Persona Flyer Pop-up (Accessible from Screen 4 Switch Persona) ✈️ */}
+        <PersonaFlyerModal
+          isOpen={isPersonaFlyerOpen}
+          onClose={() => setIsPersonaFlyerOpen(false)}
+          personas={PERSONAS}
+          selectedPersona={selectedPersona}
+          onSelectPersona={(p) => {
+            setSelectedPersona(p);
+            setIsPersonaFlyerOpen(false);
+          }}
+        />
       </div>
     </div>
   );

@@ -51,30 +51,17 @@ export const GrowwHeader: React.FC<GrowwHeaderProps> = ({
         </div>
 
         <div className="flex items-center gap-2">
-          {/* 📢 Tour Tips Toggle (Matching Gemini Screenshot) */}
-          {onToggleTourTips && (
-            <button
-              onClick={onToggleTourTips}
-              className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold border transition-all cursor-pointer ${
-                tourTipsOn
-                  ? "bg-emerald-50 text-emerald-800 border-emerald-300 hover:bg-emerald-100"
-                  : "bg-gray-50 text-gray-500 border-gray-200 hover:bg-gray-100"
-              }`}
-              title="Toggle evaluator guide tips"
-            >
-              <span>{tourTipsOn ? "📢 Tips: On" : "🔇 Tips: Off"}</span>
-            </button>
-          )}
-
           {activePersonaName && (
-            <button
+            <div
               onClick={onOpenPersonaModal}
-              className="flex items-center gap-1.5 px-2.5 py-1 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 rounded-full text-xs font-medium text-emerald-800 transition-all active:scale-95 cursor-pointer"
-              title="Switch user persona"
+              className={`flex items-center gap-1.5 px-2.5 py-1 bg-emerald-50 border border-emerald-200 rounded-full text-xs font-semibold text-emerald-800 transition-all ${
+                onOpenPersonaModal ? "hover:bg-emerald-100 cursor-pointer active:scale-95" : "cursor-default"
+              }`}
+              title={onOpenPersonaModal ? "Click to switch user persona" : `Logged in as ${activePersonaName}`}
             >
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="truncate max-w-[70px]">{activePersonaName.split(" ")[0]}</span>
-            </button>
+              <span className="truncate max-w-[85px]">{activePersonaName}</span>
+            </div>
           )}
 
           <button className="p-1.5 rounded-full hover:bg-gray-100 text-gray-500">
