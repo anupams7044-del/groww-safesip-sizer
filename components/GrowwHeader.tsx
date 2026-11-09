@@ -1,0 +1,73 @@
+"use client";
+
+import React from "react";
+import { ArrowLeft, Bell, Search, ShieldCheck } from "lucide-react";
+
+interface GrowwHeaderProps {
+  title?: string;
+  showBack?: boolean;
+  onBack?: () => void;
+  activePersonaName?: string;
+  onOpenPersonaModal?: () => void;
+}
+
+export const GrowwHeader: React.FC<GrowwHeaderProps> = ({
+  title,
+  showBack = false,
+  onBack,
+  activePersonaName,
+  onOpenPersonaModal,
+}) => {
+  return (
+    <header className="sticky top-0 z-30 bg-white border-b border-gray-100 shadow-xs w-full">
+      <div className="max-w-xl mx-auto px-4 py-3 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          {showBack ? (
+            <button
+              onClick={onBack}
+              className="p-1.5 -ml-1.5 rounded-full hover:bg-gray-100 text-gray-700 transition-colors"
+              aria-label="Go back"
+            >
+              <ArrowLeft className="w-5 h-5" />
+            </button>
+          ) : (
+            <div className="flex items-center gap-2">
+              {/* Groww Brand Logo Marks */}
+              <div className="w-7 h-7 rounded-full bg-emerald-500 flex items-center justify-center shadow-sm">
+                <span className="text-white font-bold text-sm tracking-tighter">G</span>
+              </div>
+              <span className="font-bold text-base tracking-tight text-gray-900">Groww</span>
+            </div>
+          )}
+          {title && (
+            <h1 className="text-sm font-semibold text-gray-900 truncate max-w-[200px]">
+              {title}
+            </h1>
+          )}
+        </div>
+
+        <div className="flex items-center gap-2">
+          {activePersonaName && (
+            <button
+              onClick={onOpenPersonaModal}
+              className="flex items-center gap-1.5 px-2.5 py-1 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 rounded-full text-xs font-medium text-emerald-800 transition-all active:scale-95"
+              title="Switch user persona"
+            >
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="truncate max-w-[70px]">{activePersonaName.split(" ")[0]}</span>
+              <span className="text-[10px] bg-white px-1 py-0.5 rounded text-emerald-700 font-semibold">Test</span>
+            </button>
+          )}
+
+          <button className="p-1.5 rounded-full hover:bg-gray-100 text-gray-500">
+            <Search className="w-4 h-4" />
+          </button>
+          <button className="p-1.5 rounded-full hover:bg-gray-100 text-gray-500 relative">
+            <Bell className="w-4 h-4" />
+            <span className="w-1.5 h-1.5 bg-red-500 rounded-full absolute top-1.5 right-1.5" />
+          </button>
+        </div>
+      </div>
+    </header>
+  );
+};
