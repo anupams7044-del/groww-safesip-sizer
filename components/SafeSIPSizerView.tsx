@@ -13,6 +13,8 @@ import {
   ChevronUp,
   Wallet,
   Info,
+  Building2,
+  Check,
 } from "lucide-react";
 
 interface SafeSIPSizerViewProps {
@@ -99,6 +101,27 @@ export const SafeSIPSizerView: React.FC<SafeSIPSizerViewProps> = ({
           <p className="text-xs text-gray-500 mt-0.5">
             Sized within your verified monthly surplus of <strong>₹{sizerResult.netMonthlySurplus.toLocaleString("en-IN")}</strong>
           </p>
+        </div>
+
+        {/* 🌟 Verified Bank Account Badge (Shown only after consent is granted) 🌟 */}
+        <div className="p-3 bg-emerald-50/70 rounded-2xl border border-emerald-200 flex items-center justify-between">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-xl bg-white border border-emerald-200 flex items-center justify-center text-emerald-700 shadow-xs">
+              <Building2 className="w-4 h-4 text-emerald-600" />
+            </div>
+            <div>
+              <span className="text-xs font-bold text-gray-900 block">
+                {persona.bankName || "HDFC Bank"} Salary Account
+              </span>
+              <span className="text-[11px] text-gray-500">
+                A/c **4928 · {persona.name}
+              </span>
+            </div>
+          </div>
+          <span className="text-[10px] font-bold bg-emerald-600 text-white px-2.5 py-0.5 rounded-full flex items-center gap-1 shadow-xs">
+            <Check className="w-3 h-3" />
+            <span>Consent Granted &amp; Linked</span>
+          </span>
         </div>
 
         {/* 3 Clean Affordability Tier Cards */}

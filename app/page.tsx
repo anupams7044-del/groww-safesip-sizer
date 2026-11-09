@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { PERSONAS } from "@/lib/personas";
 import { UserPersona, SizerResult } from "@/lib/types";
 import { calculateSafeSIP } from "@/lib/calculations";
@@ -51,6 +51,13 @@ export default function Home({
   const sizerResult: SizerResult = useMemo(() => {
     return calculateSafeSIP(selectedPersona);
   }, [selectedPersona]);
+
+  // Ensure every page always loads from the very top (never opens mid-section)
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.scrollTo(0, 0);
+    }
+  }, [currentStep]);
 
   // Back button handler: Navigates back strictly to previous screen
   const handleBack = () => {

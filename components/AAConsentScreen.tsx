@@ -116,23 +116,16 @@ export const AAConsentScreen: React.FC<AAConsentScreenProps> = ({
           </div>
         )}
 
-        {/* Persona Bank Link Card */}
-        <div className="p-3.5 bg-gray-50 rounded-2xl border border-gray-200 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-white border border-gray-200 flex items-center justify-center text-gray-700 shadow-xs">
-              <Building2 className="w-5 h-5 text-emerald-600" />
-            </div>
-            <div>
-              <span className="text-xs font-bold text-gray-900 block">
-                {persona.bankName || "HDFC Bank"} Salary Account
-              </span>
-              <span className="text-[11px] text-gray-500">
-                A/c **4928 · {persona.name}
-              </span>
-            </div>
+        {/* Target Bank to be Linked */}
+        <div className="p-3 bg-slate-50 rounded-2xl border border-slate-200 flex items-center justify-between text-xs">
+          <div className="flex items-center gap-2.5">
+            <Building2 className="w-4 h-4 text-slate-500" />
+            <span className="text-gray-700 font-medium">
+              Target Salary Bank: <strong className="text-gray-900">{persona.bankName || "HDFC Bank"} (A/c **4928)</strong>
+            </span>
           </div>
-          <span className="text-[10px] font-semibold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full">
-            Linked
+          <span className="text-[10px] font-semibold text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full">
+            Pending Consent
           </span>
         </div>
 
@@ -202,15 +195,6 @@ export const AAConsentScreen: React.FC<AAConsentScreenProps> = ({
               </span>
             )}
           </button>
-
-          <div className="text-center pt-1">
-            <button
-              onClick={onApproveConsent}
-              className="text-xs text-gray-500 hover:text-emerald-700 font-semibold transition-colors underline cursor-pointer"
-            >
-              Skip and view calculation directly →
-            </button>
-          </div>
         </div>
       </div>
     </div>
