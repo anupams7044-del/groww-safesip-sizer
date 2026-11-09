@@ -47,7 +47,7 @@ export const SafeSIPSizerView: React.FC<SafeSIPSizerViewProps> = ({
       : customAmount;
 
   return (
-    <div className="w-full max-w-xl mx-auto p-4 sm:p-6 space-y-4 pb-28 animate-fade-in">
+    <div className="w-full max-w-xl mx-auto p-4 sm:p-6 space-y-4 pb-44 sm:pb-48 animate-fade-in">
       {/* 🌟 1. CORE SECTION: CLEAN RECOMMENDATION CARDS (ZERO COGNITIVE LOAD) 🌟 */}
       <div className="bg-white rounded-3xl p-5 border border-gray-200 shadow-sm space-y-4">
         {/* Minimal Header */}
@@ -227,7 +227,7 @@ export const SafeSIPSizerView: React.FC<SafeSIPSizerViewProps> = ({
       </div>
 
       {/* 🌟 2. OPTIONAL EXPANDABLE SECTION (ONLY IF EVALUATOR IS CURIOUS) 🌟 */}
-      <div className="bg-white rounded-3xl border border-gray-200 shadow-sm overflow-hidden transition-all duration-300">
+      <div className="bg-white rounded-3xl border border-gray-200 shadow-sm overflow-hidden transition-all duration-300 mb-8">
         <button
           onClick={() => setShowCalculationDetails(!showCalculationDetails)}
           className="w-full p-4 flex items-center justify-between text-left hover:bg-gray-50 transition-colors cursor-pointer"
@@ -313,6 +313,7 @@ export const SafeSIPSizerView: React.FC<SafeSIPSizerViewProps> = ({
           </div>
 
           <button
+            id="tour-step3-cta"
             onClick={() => onConfirmPlan(currentInstallment, selectedDebitDate, selectedTier)}
             className="flex-1 py-3 px-4 bg-emerald-500 hover:bg-emerald-600 active:scale-98 text-white font-extrabold text-sm rounded-xl shadow-md transition-all flex items-center justify-center gap-1.5 cursor-pointer"
           >

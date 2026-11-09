@@ -4,34 +4,14 @@ import React from "react";
 import { ShieldCheck, Activity, Sparkles } from "lucide-react";
 
 interface ComplianceFooterProps {
-  onOpenPersonaModal: () => void;
-  activePersonaName: string;
+  onOpenPersonaModal?: () => void;
+  activePersonaName?: string;
 }
 
-export const ComplianceFooter: React.FC<ComplianceFooterProps> = ({
-  onOpenPersonaModal,
-  activePersonaName,
-}) => {
+export const ComplianceFooter: React.FC<ComplianceFooterProps> = () => {
   return (
     <footer className="w-full bg-slate-900 text-slate-300 border-t border-slate-800 text-[11px] py-4 px-4 mt-auto">
       <div className="max-w-xl mx-auto space-y-3">
-        {/* Telemetry & Tester Status Bar */}
-        <div className="flex items-center justify-between p-2 rounded-xl bg-slate-800/80 border border-slate-700/60">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-            <span className="font-semibold text-white">Active Tester:</span>
-            <span className="text-emerald-300 font-bold">{activePersonaName}</span>
-          </div>
-
-          <button
-            onClick={onOpenPersonaModal}
-            className="flex items-center gap-1 text-[10px] bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30 px-2 py-1 rounded-md font-semibold border border-emerald-400/30 transition-colors"
-          >
-            <Sparkles className="w-3 h-3 text-emerald-300" />
-            <span>Switch Flyer</span>
-          </button>
-        </div>
-
         {/* Regulatory & Safety Harbor Note */}
         <div className="space-y-1 text-slate-400 text-[10px] leading-relaxed">
           <div className="flex items-center gap-1.5 text-slate-300 font-semibold">

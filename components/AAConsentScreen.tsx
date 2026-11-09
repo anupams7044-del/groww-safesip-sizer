@@ -122,6 +122,7 @@ export const AAConsentScreen: React.FC<AAConsentScreenProps> = ({
         {/* Action Buttons */}
         <div className="pt-2 space-y-2">
           <button
+            id="tour-step2-cta"
             onClick={handleSimulateConsent}
             disabled={isAuthorizing}
             className="w-full py-3.5 bg-emerald-600 hover:bg-emerald-700 active:scale-98 text-white rounded-xl font-extrabold text-sm shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"

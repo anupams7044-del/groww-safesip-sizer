@@ -11,7 +11,7 @@ import { SafeSIPSizerView } from "@/components/SafeSIPSizerView";
 import { ConfirmationLedger } from "@/components/ConfirmationLedger";
 import { PersonaFlyerModal } from "@/components/PersonaFlyerModal";
 import { ComplianceFooter } from "@/components/ComplianceFooter";
-import { GuidingNudge } from "@/components/GuidingNudge";
+import { ContextualTip } from "@/components/ContextualTip";
 import { Users } from "lucide-react";
 
 type AppStep = "normal" | "consent" | "sizer" | "confirmation";
@@ -19,7 +19,7 @@ type AppStep = "normal" | "consent" | "sizer" | "confirmation";
 export default function Home({
   searchParams,
 }: {
-  searchParams?: { step?: string; hidePill?: string; persona?: string; hideNudge?: string };
+  searchParams?: { step?: string; hidePill?: string; persona?: string; hideTour?: string };
 }) {
   // Determine initial step and tester pill visibility from SSR query parameters
   const initialStep: AppStep =
@@ -33,7 +33,7 @@ export default function Home({
     PERSONAS.find((p) => p.id === searchParams?.persona) || PERSONAS[0];
 
   const initialHidePill = searchParams?.hidePill === "true";
-  const initialHideNudge = searchParams?.hideNudge === "true";
+  const initialHideTour = searchParams?.hideTour === "true";
 
   // Active Persona State
   const [selectedPersona, setSelectedPersona] = useState<UserPersona>(initialPersona);
@@ -44,7 +44,9 @@ export default function Home({
   // Navigation history stack to ensure Back button always returns to the exact previous step
   const [stepHistory, setStepHistory] = useState<AppStep[]>([initialStep]);
   const [hideTesterPill] = useState(initialHidePill);
-  const [hideNudge] = useState(initialHideNudge);
+
+  // Tour Tips visibility state (defaults to On, matching Gemini screenshot)
+  const [tourTipsOn, setTourTipsOn] = useState(!initialHideTour);
 
   // Confirmed SIP Plan State
   const [confirmedPlan, setConfirmedPlan] = useState<{
@@ -67,7 +69,11 @@ export default function Home({
     setStepHistory((prev) => [...prev, nextStep]);
     setCurrentStep(nextStep);
     if (typeof window !== "undefined") {
-      window.history.pushState({ step: nextStep }, "", `?step=${nextStep}${hideTesterPill ? "&hidePill=true" : ""}`);
+      window.history.pushState(
+        { step: nextStep },
+        "",
+        `?step=${nextStep}${hideTesterPill ? "&hidePill=true" : ""}${!tourTipsOn ? "&hideTour=true" : ""}`
+      );
     }
   };
 
@@ -80,7 +86,11 @@ export default function Home({
       setStepHistory(nextHistory);
       setCurrentStep(previousStep);
       if (typeof window !== "undefined") {
-        window.history.replaceState({ step: previousStep }, "", `?step=${previousStep}${hideTesterPill ? "&hidePill=true" : ""}`);
+        window.history.replaceState(
+          { step: previousStep },
+          "",
+          `?step=${previousStep}${hideTesterPill ? "&hidePill=true" : ""}${!tourTipsOn ? "&hideTour=true" : ""}`
+        );
       }
     } else {
       // Deterministic fallback hierarchy if direct link was accessed
@@ -158,12 +168,16 @@ export default function Home({
           onBack={handleBack}
           activePersonaName={selectedPersona.name}
           onOpenPersonaModal={() => setIsPersonaFlyerOpen(true)}
+          tourTipsOn={tourTipsOn}
+          onToggleTourTips={() => setTourTipsOn(!tourTipsOn)}
         />
 
-        {/* 💡 First-Time User / Evaluator Guiding Nudge */}
-        {!hideNudge && (
-          <GuidingNudge step={currentStep} />
-        )}
+        {/* 💡 Contextual Dark Tooltip Popover (Matching Gemini Screenshot) 💡 */}
+        <ContextualTip
+          step={currentStep}
+          isOpen={tourTipsOn}
+          onClose={() => setTourTipsOn(false)}
+        />
 
         {/* Screen 1: Normal Groww SIP Flow */}
         {currentStep === "normal" && (
@@ -213,27 +227,7 @@ export default function Home({
         )}
 
         {/* Compliance Footer */}
-        <ComplianceFooter
-          activePersonaName={selectedPersona.name}
-          onOpenPersonaModal={() => setIsPersonaFlyerOpen(true)}
-        />
-
-        {/* Floating Tester Flyer Trigger Pill (Always accessible on screen unless hidden for mockups) */}
-        {!hideTesterPill && (
-          <div className="fixed bottom-20 right-4 z-40">
-            <button
-              onClick={() => setIsPersonaFlyerOpen(true)}
-              className="flex items-center gap-2 px-3.5 py-2 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white rounded-full shadow-lg border border-white/30 text-xs font-bold transition-all hover:scale-105 active:scale-95 cursor-pointer"
-              aria-label="Open Persona Tester Flyer"
-            >
-              <Users className="w-4 h-4 text-emerald-200" />
-              <span>Switch Persona</span>
-              <span className="bg-emerald-400 text-gray-950 text-[10px] px-1.5 py-0.2 rounded-full font-black">
-                {selectedPersona.name.split(" ")[0]}
-              </span>
-            </button>
-          </div>
-        )}
+        <ComplianceFooter />
 
         {/* ✈️ Interactive Tester Flyer Pop-up (Accessible anytime) ✈️ */}
         <PersonaFlyerModal

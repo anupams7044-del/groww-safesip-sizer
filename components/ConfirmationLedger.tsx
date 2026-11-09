@@ -124,6 +124,7 @@ export const ConfirmationLedger: React.FC<ConfirmationLedgerProps> = ({
       {/* Share & Actions Card */}
       <div className="space-y-2.5 pt-1">
         <button
+          id="tour-step4-cta"
           onClick={handleShareDetails}
           className="w-full py-3.5 px-4 bg-slate-900 hover:bg-black active:scale-98 text-white font-extrabold text-xs sm:text-sm rounded-2xl shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer"
         >

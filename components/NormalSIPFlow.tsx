@@ -62,6 +62,7 @@ export const NormalSIPFlow: React.FC<NormalSIPFlowProps> = ({
         </div>
 
         <button
+          id="tour-step1-cta"
           onClick={onOpenSizerFlow}
           className="w-full sm:w-auto self-stretch sm:self-end py-2 px-3.5 bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-bold text-xs rounded-xl shadow-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer"
         >
