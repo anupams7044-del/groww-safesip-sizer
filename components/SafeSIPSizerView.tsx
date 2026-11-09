@@ -61,9 +61,9 @@ export const SafeSIPSizerView: React.FC<SafeSIPSizerViewProps> = ({
       : customAmount;
 
   return (
-    <div className="w-full max-w-xl mx-auto p-4 sm:p-6 space-y-4 pb-44 sm:pb-48 animate-fade-in">
+    <div className="w-full max-w-xl mx-auto p-3 sm:p-6 space-y-4 pb-44 sm:pb-48 animate-fade-in">
       {/* 🌟 1. CORE CARD: DUAL TABS, SIZING TIERS & DEBIT DATE 🌟 */}
-      <div className="bg-white rounded-3xl p-5 border border-gray-200 shadow-sm space-y-4">
+      <div className="bg-white rounded-3xl p-3.5 sm:p-5 border border-gray-200 shadow-sm space-y-4">
         {/* Dual-Mode Segmented Header Tabs (SafeSIP Sizer Mode Active) */}
         {onSwitchToStandard && (
           <div className="w-full bg-slate-100 p-1.5 rounded-2xl flex flex-col sm:flex-row gap-1.5 border border-slate-200/80">
@@ -144,43 +144,37 @@ export const SafeSIPSizerView: React.FC<SafeSIPSizerViewProps> = ({
 
         {/* 3 Clean Affordability Tier Cards */}
         <div className="space-y-2.5 relative">
-          <FloatingGuideTooltip
-            storageKey="groww_guide_sizer"
-            type="sizer"
-            position="top"
-          />
-
           {/* Tier 1: Comfortable (SafeSIP) - Recommended */}
           <div
             onClick={() => setSelectedTier("comfortable")}
-            className={`p-3.5 rounded-2xl border-2 transition-all cursor-pointer relative ${
+            className={`p-3 sm:p-3.5 rounded-2xl border-2 transition-all cursor-pointer relative ${
               selectedTier === "comfortable"
                 ? "border-emerald-500 bg-emerald-50/40 shadow-xs ring-1 ring-emerald-500"
                 : "border-gray-200 hover:border-gray-300 bg-white"
             }`}
           >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold shrink-0">
-                  <ShieldCheck className="w-5 h-5" />
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2 min-w-0">
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold shrink-0">
+                  <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5" />
                 </div>
-                <div>
-                  <div className="flex items-center gap-1.5">
-                    <span className="font-extrabold text-gray-900 text-sm">Comfortable (SafeSIP)</span>
-                    <span className="text-[10px] bg-emerald-600 text-white font-bold px-2 py-0.2 rounded-full uppercase">
+                <div className="min-w-0">
+                  <div className="flex items-center flex-wrap gap-1">
+                    <span className="font-extrabold text-gray-900 text-xs sm:text-sm">Comfortable (SafeSIP)</span>
+                    <span className="text-[9px] bg-emerald-600 text-white font-bold px-1.5 py-0.5 rounded-full uppercase">
                       Recommended
                     </span>
                   </div>
-                  <span className="text-[11px] text-emerald-700 font-medium block">
+                  <span className="text-[10.5px] sm:text-[11px] text-emerald-700 font-medium block truncate">
                     Zero NACH bounce risk · Leaves ₹{sizerResult.comfortable.remainingBuffer.toLocaleString("en-IN")} buffer
                   </span>
                 </div>
               </div>
               <div className="text-right shrink-0">
-                <span className="text-lg font-black text-gray-900">
+                <span className="text-base sm:text-lg font-black text-gray-900">
                   ₹{sizerResult.comfortable.amount.toLocaleString("en-IN")}
                 </span>
-                <span className="block text-[10px] text-gray-400">/ month</span>
+                <span className="block text-[9px] sm:text-[10px] text-gray-400">/ month</span>
               </div>
             </div>
           </div>
@@ -188,29 +182,29 @@ export const SafeSIPSizerView: React.FC<SafeSIPSizerViewProps> = ({
           {/* Tier 2: Stretch */}
           <div
             onClick={() => setSelectedTier("stretch")}
-            className={`p-3.5 rounded-2xl border-2 transition-all cursor-pointer ${
+            className={`p-3 sm:p-3.5 rounded-2xl border-2 transition-all cursor-pointer ${
               selectedTier === "stretch"
                 ? "border-blue-500 bg-blue-50/40 shadow-xs"
                 : "border-gray-200 hover:border-gray-300 bg-white"
             }`}
           >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold shrink-0">
-                  <TrendingUp className="w-5 h-5" />
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2 min-w-0">
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold shrink-0">
+                  <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5" />
                 </div>
-                <div>
-                  <span className="font-bold text-gray-900 text-sm">Stretch Tier</span>
-                  <span className="text-[11px] text-blue-700 font-medium block">
+                <div className="min-w-0">
+                  <span className="font-bold text-gray-900 text-xs sm:text-sm">Stretch Tier</span>
+                  <span className="text-[10.5px] sm:text-[11px] text-blue-700 font-medium block truncate">
                     Higher compounding · Leaves ₹{sizerResult.stretch.remainingBuffer.toLocaleString("en-IN")} buffer
                   </span>
                 </div>
               </div>
               <div className="text-right shrink-0">
-                <span className="text-lg font-black text-gray-900">
+                <span className="text-base sm:text-lg font-black text-gray-900">
                   ₹{sizerResult.stretch.amount.toLocaleString("en-IN")}
                 </span>
-                <span className="block text-[10px] text-gray-400">/ month</span>
+                <span className="block text-[9px] sm:text-[10px] text-gray-400">/ month</span>
               </div>
             </div>
           </div>
@@ -218,35 +212,42 @@ export const SafeSIPSizerView: React.FC<SafeSIPSizerViewProps> = ({
           {/* Tier 3: Risky */}
           <div
             onClick={() => setSelectedTier("risky")}
-            className={`p-3.5 rounded-2xl border-2 transition-all cursor-pointer ${
+            className={`p-3 sm:p-3.5 rounded-2xl border-2 transition-all cursor-pointer ${
               selectedTier === "risky"
                 ? "border-gray-500 bg-gray-50 shadow-xs"
                 : "border-gray-200 hover:border-gray-300 bg-white"
             }`}
           >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-xl bg-gray-100 text-gray-700 flex items-center justify-center font-bold shrink-0">
-                  <Wallet className="w-5 h-5" />
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2 min-w-0">
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gray-100 text-gray-700 flex items-center justify-center font-bold shrink-0">
+                  <Wallet className="w-4 h-4 sm:w-5 sm:h-5" />
                 </div>
-                <div>
-                  <span className="font-bold text-gray-900 text-sm">Max Allocation Tier</span>
-                  <span className="text-[11px] text-gray-500 font-medium block">
+                <div className="min-w-0">
+                  <span className="font-bold text-gray-900 text-xs sm:text-sm">Max Allocation Tier</span>
+                  <span className="text-[10.5px] sm:text-[11px] text-gray-500 font-medium block truncate">
                     Tight margin · Leaves only ₹{sizerResult.risky.remainingBuffer.toLocaleString("en-IN")} buffer
                   </span>
                 </div>
               </div>
               <div className="text-right shrink-0">
-                <span className="text-lg font-black text-gray-900">
+                <span className="text-base sm:text-lg font-black text-gray-900">
                   ₹{sizerResult.risky.amount.toLocaleString("en-IN")}
                 </span>
-                <span className="block text-[10px] text-gray-400">/ month</span>
+                <span className="block text-[9px] sm:text-[10px] text-gray-400">/ month</span>
               </div>
             </div>
           </div>
 
           {/* Custom Amount Button */}
-          <div className="pt-1">
+          <div className="pt-1 relative">
+            <FloatingGuideTooltip
+              storageKey="groww_guide_custom_amount"
+              title="Custom Amount"
+              message="You can still go with an amount of your choice"
+              position="top"
+              align="center"
+            />
             <button
               onClick={() => setSelectedTier("custom")}
               className={`w-full py-2 px-3 rounded-xl border text-xs font-semibold flex items-center justify-between transition-all cursor-pointer ${
@@ -315,7 +316,14 @@ export const SafeSIPSizerView: React.FC<SafeSIPSizerViewProps> = ({
       </div>
 
       {/* 🌟 2. CURIOUS HOW THIS WAS CALCULATED? (EXPANDABLE: Math + Statement + Why this amount) 🌟 */}
-      <div className="bg-white rounded-3xl border border-gray-200 shadow-sm overflow-hidden transition-all duration-300">
+      <div className="bg-white rounded-3xl border border-gray-200 shadow-sm transition-all duration-300 relative">
+        <FloatingGuideTooltip
+          storageKey="groww_guide_calculation"
+          title="Detailed calculation"
+          message="Tap here to inspect 6-month statement math & surplus breakdown"
+          position="top"
+          align="left"
+        />
         <button
           onClick={() => setShowCalculationDetails(!showCalculationDetails)}
           className="w-full p-4 flex items-center justify-between text-left hover:bg-gray-50 transition-colors cursor-pointer"
@@ -457,26 +465,35 @@ export const SafeSIPSizerView: React.FC<SafeSIPSizerViewProps> = ({
       </div>
 
       {/* 🌟 4. FIXED BOTTOM BAR (DIRECT SINGLE ACTION) 🌟 */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-gray-200 p-3 shadow-lg">
-        <div className="max-w-xl mx-auto flex items-center justify-between gap-3">
-          <div>
-            <span className="text-[10px] text-gray-400 block font-semibold">Selected Installment</span>
+      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-gray-200 p-2.5 sm:p-3 shadow-lg">
+        <div className="max-w-xl mx-auto flex items-center justify-between gap-2.5 sm:gap-3">
+          <div className="shrink-0">
+            <span className="text-[10px] text-gray-400 block font-semibold leading-tight">Selected</span>
             <div className="flex items-baseline gap-1">
-              <span className="text-lg font-black text-gray-900">
+              <span className="text-base sm:text-lg font-black text-gray-900">
                 ₹{currentInstallment.toLocaleString("en-IN")}
               </span>
-              <span className="text-xs text-gray-500 font-medium">on the {selectedDebitDate === 1 ? "1st" : `${selectedDebitDate}th`}</span>
+              <span className="text-[10.5px] sm:text-xs text-gray-500 font-medium">on {selectedDebitDate === 1 ? "1st" : `${selectedDebitDate}th`}</span>
             </div>
           </div>
 
-          <button
-            id="tour-step3-cta"
-            onClick={() => onConfirmPlan(currentInstallment, selectedDebitDate, selectedTier)}
-            className="flex-1 py-3 px-4 bg-emerald-500 hover:bg-emerald-600 active:scale-98 text-white font-extrabold text-sm rounded-xl shadow-md transition-all flex items-center justify-center gap-1.5 cursor-pointer"
-          >
-            <span>Confirm &amp; Apply Plan</span>
-            <ArrowRight className="w-4 h-4" />
-          </button>
+          <div className="relative flex-1 min-w-0">
+            <FloatingGuideTooltip
+              storageKey="groww_guide_confirm_plan"
+              title="Finalise Plan"
+              message="Tap here to start or finalise your MVP"
+              position="top"
+              align="right"
+            />
+            <button
+              id="tour-step3-cta"
+              onClick={() => onConfirmPlan(currentInstallment, selectedDebitDate, selectedTier)}
+              className="w-full py-2.5 sm:py-3 px-3 sm:px-4 bg-emerald-500 hover:bg-emerald-600 active:scale-98 text-white font-extrabold text-xs sm:text-sm rounded-xl shadow-md transition-all flex items-center justify-center gap-1 cursor-pointer whitespace-nowrap"
+            >
+              <span>Confirm &amp; Apply Plan</span>
+              <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+            </button>
+          </div>
         </div>
       </div>
     </div>

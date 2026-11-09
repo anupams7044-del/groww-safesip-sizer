@@ -5,16 +5,24 @@ import { X, ShieldCheck, Sparkles, CheckCircle2 } from "lucide-react";
 
 interface FloatingGuideTooltipProps {
   storageKey: string;
-  position?: "top" | "bottom" | "left" | "right";
-  type: "home" | "consent" | "sizer" | "persona";
+  position?: "top" | "bottom";
+  align?: "left" | "center" | "right";
+  type?: "home" | "consent" | "sizer" | "persona" | "custom";
+  title?: string;
+  message?: string;
   onCTAClick?: () => void;
+  className?: string;
 }
 
 export const FloatingGuideTooltip: React.FC<FloatingGuideTooltipProps> = ({
   storageKey,
   position = "top",
-  type,
+  align = "center",
+  type = "custom",
+  title,
+  message,
   onCTAClick,
+  className = "",
 }) => {
   const [isVisible, setIsVisible] = useState<boolean>(true);
 
@@ -67,24 +75,34 @@ export const FloatingGuideTooltip: React.FC<FloatingGuideTooltipProps> = ({
 
   if (!isVisible) return null;
 
+  // Determine positioning classes
+  const positionClass = position === "top" ? "bottom-full mb-3" : "top-full mt-3";
+  
+  let alignClass = "left-1/2 -translate-x-1/2";
+  let arrowAlignClass = "left-1/2 -translate-x-1/2";
+  if (align === "left") {
+    alignClass = "left-0 sm:left-2";
+    arrowAlignClass = "left-8";
+  } else if (align === "right") {
+    alignClass = "right-0 sm:right-2";
+    arrowAlignClass = "right-8";
+  }
+
+  const arrowPositionClass =
+    position === "top"
+      ? "-bottom-2 border-r-2 border-b-2"
+      : "-top-2 border-l-2 border-t-2";
+
   return (
     <div
       role="tooltip"
-      className={`absolute z-30 pointer-events-auto transition-all duration-300 animate-fade-in ${
-        position === "top"
-          ? "bottom-full mb-3 right-0 sm:right-auto sm:left-1/2 sm:-translate-x-1/2"
-          : "top-full mt-3 right-0 sm:right-auto sm:left-1/2 sm:-translate-x-1/2"
-      } w-72 sm:w-80`}
+      className={`absolute z-30 pointer-events-auto transition-all duration-300 animate-fade-in w-64 sm:w-72 max-w-[calc(100vw-32px)] ${positionClass} ${alignClass} ${className}`}
     >
       {/* Groww-Inspired Floating Card */}
-      <div className="bg-white rounded-2xl p-3.5 shadow-xl border-2 border-emerald-400 text-gray-800 relative">
+      <div className="bg-white rounded-2xl p-3 shadow-xl border-2 border-emerald-400 text-gray-800 relative">
         {/* Pointer Arrow */}
         <div
-          className={`absolute w-3.5 h-3.5 bg-white border-emerald-400 transform rotate-45 ${
-            position === "top"
-              ? "-bottom-2 right-8 sm:left-1/2 sm:-translate-x-1/2 border-r-2 border-b-2"
-              : "-top-2 right-8 sm:left-1/2 sm:-translate-x-1/2 border-l-2 border-t-2"
-          }`}
+          className={`absolute w-3.5 h-3.5 bg-white border-emerald-400 transform rotate-45 ${arrowPositionClass} ${arrowAlignClass}`}
         />
 
         {/* Header row with accent and Close Button */}
@@ -92,7 +110,12 @@ export const FloatingGuideTooltip: React.FC<FloatingGuideTooltipProps> = ({
           <div className="flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
             <span className="text-[10px] font-black uppercase tracking-wider text-emerald-700 flex items-center gap-1">
-              {type === "home" ? (
+              {title ? (
+                <>
+                  <Sparkles className="w-3 h-3 text-emerald-600" />
+                  <span>{title}</span>
+                </>
+              ) : type === "home" ? (
                 <>
                   <Sparkles className="w-3 h-3 text-emerald-600" />
                   <span>Safe SIP Sizer</span>
@@ -125,8 +148,22 @@ export const FloatingGuideTooltip: React.FC<FloatingGuideTooltipProps> = ({
           </button>
         </div>
 
-        {/* Content based on screen */}
-        {type === "home" ? (
+        {/* Content */}
+        {message ? (
+          <div
+            onClick={() => {
+              if (onCTAClick) {
+                handleDismiss();
+                onCTAClick();
+              }
+            }}
+            className={onCTAClick ? "pt-0.5 cursor-pointer hover:opacity-90 transition-opacity" : "pt-0.5"}
+          >
+            <p className="text-xs font-semibold text-gray-900 leading-snug">
+              {message}
+            </p>
+          </div>
+        ) : type === "home" ? (
           <div
             onClick={() => {
               handleDismiss();
