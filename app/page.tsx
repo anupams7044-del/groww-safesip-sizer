@@ -9,8 +9,6 @@ import { NormalSIPFlow } from "@/components/NormalSIPFlow";
 import { AAConsentScreen } from "@/components/AAConsentScreen";
 import { SafeSIPSizerView } from "@/components/SafeSIPSizerView";
 import { ConfirmationLedger } from "@/components/ConfirmationLedger";
-import { PersonaFlyerModal } from "@/components/PersonaFlyerModal";
-import { GuidedWalkthroughModal } from "@/components/GuidedWalkthroughModal";
 import { ComplianceFooter } from "@/components/ComplianceFooter";
 
 type AppStep = "normal" | "consent" | "sizer" | "confirmation";
@@ -32,8 +30,6 @@ export default function Home({
 
   // Active Persona State
   const [selectedPersona, setSelectedPersona] = useState<UserPersona>(initialPersona);
-  const [isPersonaFlyerOpen, setIsPersonaFlyerOpen] = useState<boolean>(false);
-  const [isWalkthroughOpen, setIsWalkthroughOpen] = useState<boolean>(false);
 
   // App Navigation Flow: 'normal' -> 'consent' -> 'sizer' -> 'confirmation'
   const [currentStep, setCurrentStep] = useState<AppStep>(initialStep);
@@ -127,8 +123,7 @@ export default function Home({
           showBack={currentStep !== "normal"}
           onBack={handleBack}
           activePersonaName={selectedPersona.name}
-          onOpenPersonaModal={currentStep !== "normal" ? () => setIsPersonaFlyerOpen(true) : undefined}
-          onOpenWalkthrough={() => setIsWalkthroughOpen(true)}
+          onOpenPersonaModal={() => setCurrentStep("consent")}
         />
 
         {/* Screen 1: Normal Groww SIP Flow */}
@@ -189,26 +184,6 @@ export default function Home({
 
         {/* Compliance Footer */}
         <ComplianceFooter />
-
-        {/* 🌟 Guided Walkthrough Modal for Evaluators 🌟 */}
-        <GuidedWalkthroughModal
-          isOpen={isWalkthroughOpen}
-          onClose={() => setIsWalkthroughOpen(false)}
-          onNavigateToStep={(step) => setCurrentStep(step)}
-        />
-
-        {/* ✈️ Persona Flyer Pop-up (Navigates to second page on selection) ✈️ */}
-        <PersonaFlyerModal
-          isOpen={isPersonaFlyerOpen}
-          onClose={() => setIsPersonaFlyerOpen(false)}
-          personas={PERSONAS}
-          selectedPersona={selectedPersona}
-          onSelectPersona={(p) => {
-            setSelectedPersona(p);
-            setIsPersonaFlyerOpen(false);
-            setCurrentStep("consent");
-          }}
-        />
       </div>
     </div>
   );

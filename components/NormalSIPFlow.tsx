@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { UserPersona } from "@/lib/types";
 import { Sparkles, ArrowRight, ShieldCheck, Check } from "lucide-react";
+import { FloatingGuideTooltip } from "./FloatingGuideTooltip";
 
 interface NormalSIPFlowProps {
   persona: UserPersona;
@@ -78,25 +79,33 @@ export const NormalSIPFlow: React.FC<NormalSIPFlowProps> = ({
           </button>
 
           {/* Tab 2: SafeSIP Sizer Mode (Interactive Mode Switcher) */}
-          <button
-            type="button"
-            onClick={onOpenSizerFlow}
-            className="flex-1 p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200/70 text-left transition-all cursor-pointer group border-2 border-transparent hover:border-slate-300"
-          >
-            <div className="flex items-center justify-between gap-1">
-              <div className="flex items-center gap-1.5 font-bold text-xs sm:text-sm text-slate-800 group-hover:text-emerald-700 transition-colors">
-                <span>✨</span>
-                <span>SafeSIP Sizer</span>
+          <div className="flex-1 relative">
+            <FloatingGuideTooltip
+              storageKey="groww_guide_home"
+              type="home"
+              position="top"
+              onCTAClick={onOpenSizerFlow}
+            />
+            <button
+              type="button"
+              onClick={onOpenSizerFlow}
+              className="w-full p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200/70 text-left transition-all cursor-pointer group border-2 border-transparent hover:border-slate-300"
+            >
+              <div className="flex items-center justify-between gap-1">
+                <div className="flex items-center gap-1.5 font-bold text-xs sm:text-sm text-slate-800 group-hover:text-emerald-700 transition-colors">
+                  <span>✨</span>
+                  <span>SafeSIP Sizer</span>
+                </div>
+                <span className="text-[9px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded-full border border-emerald-200">
+                  Cashflow-Guided
+                </span>
               </div>
-              <span className="text-[9px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded-full border border-emerald-200">
-                Cashflow-Guided
-              </span>
-            </div>
-            <div className="flex items-center gap-1 text-[10px] sm:text-[10.5px] text-emerald-700 font-semibold mt-0.5">
-              <span className="truncate">6M Bank Analysis • Avoid ₹250–₹590 NACH Fees</span>
-              <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform shrink-0" />
-            </div>
-          </button>
+              <div className="flex items-center gap-1 text-[10px] sm:text-[10.5px] text-emerald-700 font-semibold mt-0.5">
+                <span className="truncate">6M Bank Analysis • Avoid ₹250–₹590 NACH Fees</span>
+                <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform shrink-0" />
+              </div>
+            </button>
+          </div>
         </div>
 
         {/* Section 1: Select Category */}

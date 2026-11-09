@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { UserPersona, SizerResult } from "@/lib/types";
 import { CashflowTable } from "./CashflowTable";
+import { FloatingGuideTooltip } from "./FloatingGuideTooltip";
 import {
   ShieldCheck,
   Calendar,
@@ -142,7 +143,13 @@ export const SafeSIPSizerView: React.FC<SafeSIPSizerViewProps> = ({
         </div>
 
         {/* 3 Clean Affordability Tier Cards */}
-        <div className="space-y-2.5">
+        <div className="space-y-2.5 relative">
+          <FloatingGuideTooltip
+            storageKey="groww_guide_sizer"
+            type="sizer"
+            position="top"
+          />
+
           {/* Tier 1: Comfortable (SafeSIP) - Recommended */}
           <div
             onClick={() => setSelectedTier("comfortable")}

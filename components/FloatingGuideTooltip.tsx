@@ -6,7 +6,7 @@ import { X, ShieldCheck, Sparkles, CheckCircle2 } from "lucide-react";
 interface FloatingGuideTooltipProps {
   storageKey: string;
   position?: "top" | "bottom" | "left" | "right";
-  type: "home" | "consent";
+  type: "home" | "consent" | "sizer";
   onCTAClick?: () => void;
 }
 
@@ -97,10 +97,15 @@ export const FloatingGuideTooltip: React.FC<FloatingGuideTooltipProps> = ({
                   <Sparkles className="w-3 h-3 text-emerald-600" />
                   <span>Safe SIP Sizer</span>
                 </>
-              ) : (
+              ) : type === "consent" ? (
                 <>
                   <ShieldCheck className="w-3 h-3 text-emerald-600" />
                   <span>Safe Verification</span>
+                </>
+              ) : (
+                <>
+                  <Sparkles className="w-3 h-3 text-emerald-600" />
+                  <span>Sizing Recommendation</span>
                 </>
               )}
             </span>
@@ -128,7 +133,7 @@ export const FloatingGuideTooltip: React.FC<FloatingGuideTooltipProps> = ({
               Need help calculating your safe SIP amount? Tap here
             </p>
           </div>
-        ) : (
+        ) : type === "consent" ? (
           <div className="pt-0.5 space-y-1 text-[11px] text-gray-700 font-medium">
             <p className="font-bold text-xs text-gray-900 flex items-center gap-1">
               <span>Click here to give consent *</span>
@@ -147,6 +152,15 @@ export const FloatingGuideTooltip: React.FC<FloatingGuideTooltipProps> = ({
                 <span>Read-only cashflow analysis only</span>
               </div>
             </div>
+          </div>
+        ) : (
+          <div className="pt-0.5 text-[11px] text-gray-700 font-medium leading-relaxed">
+            <p className="font-bold text-xs text-gray-900">
+              Safe buffer included *
+            </p>
+            <p className="text-[10.5px] text-slate-600 mt-0.5">
+              Leaves a 60% cash buffer in your bank so emergency spikes never trigger ₹250–₹590 bounce fees.
+            </p>
           </div>
         )}
       </div>
