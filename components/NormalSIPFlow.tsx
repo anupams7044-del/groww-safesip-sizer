@@ -99,60 +99,6 @@ export const NormalSIPFlow: React.FC<NormalSIPFlowProps> = ({
           </button>
         </div>
 
-        {/* 🌟 Evaluator & Demo Strip: Built for every income pattern 🌟 */}
-        {personas && personas.length > 0 && (
-          <div className="bg-slate-50/90 rounded-xl p-2.5 border border-slate-200/80 -mt-2">
-            <div className="flex items-center justify-between gap-1 mb-1.5">
-              <span className="text-[11px] font-bold text-slate-700 flex items-center gap-1.5">
-                <span>👥</span>
-                <span>Built for every income pattern:</span>
-              </span>
-              <span className="text-[9px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded">
-                Try Sample Profile →
-              </span>
-            </div>
-            <div className="grid grid-cols-3 gap-1.5">
-              {personas.map((p) => {
-                const isSelected = p.id === persona.id;
-                return (
-                  <button
-                    key={p.id}
-                    type="button"
-                    onClick={() => {
-                      if (onSelectPersonaAndOpenSizer) {
-                        onSelectPersonaAndOpenSizer(p);
-                      } else {
-                        onOpenSizerFlow();
-                      }
-                    }}
-                    className={`p-2 rounded-lg text-left transition-all border text-xs cursor-pointer group ${
-                      isSelected
-                        ? "bg-white border-emerald-500 shadow-xs ring-1 ring-emerald-500"
-                        : "bg-white/80 hover:bg-white border-slate-200 hover:border-slate-300"
-                    }`}
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="font-bold text-[11px] text-slate-900 group-hover:text-emerald-700 transition-colors">
-                        {p.name.split(" ")[0]}
-                      </span>
-                      <span className="text-[8px] font-extrabold bg-slate-100 text-slate-700 px-1 py-0.2 rounded">
-                        ₹{(p.monthlySalary / 1000).toFixed(0)}k
-                      </span>
-                    </div>
-                    <p className="text-[9.5px] text-slate-500 truncate mt-0.5">
-                      {p.id === "priya"
-                        ? "Fresher · Steady"
-                        : p.id === "rohan"
-                        ? "Freelancer · Irregular"
-                        : "Teacher · Heavy EMIs"}
-                    </p>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        )}
-
         {/* Section 1: Select Category */}
         <div className="space-y-2">
           <label className="block text-[11px] font-bold uppercase tracking-wider text-gray-500">
