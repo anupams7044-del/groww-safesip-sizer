@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import { PERSONAS } from "@/lib/personas";
 import { UserPersona, SizerResult } from "@/lib/types";
 import { calculateSafeSIP } from "@/lib/calculations";
@@ -9,19 +9,15 @@ import { NormalSIPFlow } from "@/components/NormalSIPFlow";
 import { AAConsentScreen } from "@/components/AAConsentScreen";
 import { SafeSIPSizerView } from "@/components/SafeSIPSizerView";
 import { ConfirmationLedger } from "@/components/ConfirmationLedger";
-import { PersonaFlyerModal } from "@/components/PersonaFlyerModal";
 import { ComplianceFooter } from "@/components/ComplianceFooter";
-import { ContextualTip } from "@/components/ContextualTip";
-import { Users } from "lucide-react";
 
 type AppStep = "normal" | "consent" | "sizer" | "confirmation";
 
 export default function Home({
   searchParams,
 }: {
-  searchParams?: { step?: string; hidePill?: string; persona?: string; hideTour?: string };
+  searchParams?: { step?: string };
 }) {
-  // Determine initial step and tester pill visibility from SSR query parameters
   const initialStep: AppStep =
     searchParams?.step === "consent" ||
     searchParams?.step === "sizer" ||
@@ -29,24 +25,11 @@ export default function Home({
       ? (searchParams.step as AppStep)
       : "normal";
 
-  const initialPersona =
-    PERSONAS.find((p) => p.id === searchParams?.persona) || PERSONAS[0];
+  // Active Persona (Default Priya Nair, Day 0 first-time earner)
+  const [selectedPersona] = useState<UserPersona>(PERSONAS[0]);
 
-  const initialHidePill = searchParams?.hidePill === "true";
-  const initialHideTour = searchParams?.hideTour === "true";
-
-  // Active Persona State
-  const [selectedPersona, setSelectedPersona] = useState<UserPersona>(initialPersona);
-  const [isPersonaFlyerOpen, setIsPersonaFlyerOpen] = useState(false);
-
-  // App Navigation Flow: 'normal' | 'consent' | 'sizer' | 'confirmation'
+  // App Navigation Flow: 'normal' -> 'consent' -> 'sizer' -> 'confirmation'
   const [currentStep, setCurrentStep] = useState<AppStep>(initialStep);
-  // Navigation history stack to ensure Back button always returns to the exact previous step
-  const [stepHistory, setStepHistory] = useState<AppStep[]>([initialStep]);
-  const [hideTesterPill] = useState(initialHidePill);
-
-  // Tour Tips visibility state (defaults to On, matching Gemini screenshot)
-  const [tourTipsOn, setTourTipsOn] = useState(!initialHideTour);
 
   // Confirmed SIP Plan State
   const [confirmedPlan, setConfirmedPlan] = useState<{
@@ -64,79 +47,32 @@ export default function Home({
     return calculateSafeSIP(selectedPersona);
   }, [selectedPersona]);
 
-  // Navigate forward to a step while tracking history
-  const navigateToStep = (nextStep: AppStep) => {
-    setStepHistory((prev) => [...prev, nextStep]);
-    setCurrentStep(nextStep);
-    if (typeof window !== "undefined") {
-      window.history.pushState(
-        { step: nextStep },
-        "",
-        `?step=${nextStep}${hideTesterPill ? "&hidePill=true" : ""}${!tourTipsOn ? "&hideTour=true" : ""}`
-      );
-    }
-  };
-
-  // Back button handler: Navigates back strictly to the previous screen
+  // Back button handler: Navigates back strictly to previous screen
   const handleBack = () => {
-    if (stepHistory.length > 1) {
-      const nextHistory = [...stepHistory];
-      nextHistory.pop(); // Remove current screen
-      const previousStep = nextHistory[nextHistory.length - 1];
-      setStepHistory(nextHistory);
-      setCurrentStep(previousStep);
-      if (typeof window !== "undefined") {
-        window.history.replaceState(
-          { step: previousStep },
-          "",
-          `?step=${previousStep}${hideTesterPill ? "&hidePill=true" : ""}${!tourTipsOn ? "&hideTour=true" : ""}`
-        );
-      }
-    } else {
-      // Deterministic fallback hierarchy if direct link was accessed
-      if (currentStep === "confirmation") setCurrentStep("sizer");
-      else if (currentStep === "sizer") setCurrentStep("consent");
-      else if (currentStep === "consent") setCurrentStep("normal");
-      else setCurrentStep("normal");
-    }
-  };
-
-  // Listen to browser / phone hardware back button
-  useEffect(() => {
-    const handlePopState = (event: PopStateEvent) => {
-      if (event.state && event.state.step) {
-        setCurrentStep(event.state.step as AppStep);
-      } else {
-        handleBack();
-      }
-    };
-    window.addEventListener("popstate", handlePopState);
-    return () => window.removeEventListener("popstate", handlePopState);
-  }, [stepHistory, currentStep]);
-
-  // Handler for switching personas from the flyer pop-up
-  const handleSelectPersona = (persona: UserPersona) => {
-    setSelectedPersona(persona);
+    if (currentStep === "confirmation") setCurrentStep("sizer");
+    else if (currentStep === "sizer") setCurrentStep("consent");
+    else if (currentStep === "consent") setCurrentStep("normal");
+    else setCurrentStep("normal");
   };
 
   // Handler for user clicking "Switch to Safe SIP Sizer" banner on Screen 1
   const handleInitiateSizerFlow = () => {
-    navigateToStep("consent");
+    setCurrentStep("consent");
   };
 
-  // Handler for approving RBI AA consent
+  // Handler for approving RBI AA consent on Screen 2
   const handleApproveAAConsent = () => {
-    navigateToStep("sizer");
+    setCurrentStep("sizer");
   };
 
-  // Handler for confirming and applying safe SIP plan
+  // Handler for confirming and applying safe SIP plan on Screen 3
   const handleConfirmPlan = (amount: number, debitDate: number, tier: string) => {
     setConfirmedPlan({
       amount,
       debitDate,
       tier,
     });
-    navigateToStep("confirmation");
+    setCurrentStep("confirmation");
   };
 
   // Handler for proceeding with normal SIP without sizing
@@ -146,7 +82,7 @@ export default function Home({
       debitDate,
       tier: "Direct Unbuffered SIP",
     });
-    navigateToStep("confirmation");
+    setCurrentStep("confirmation");
   };
 
   return (
@@ -166,20 +102,7 @@ export default function Home({
           }
           showBack={currentStep !== "normal"}
           onBack={handleBack}
-          activePersonaName={selectedPersona.name}
-          onOpenPersonaModal={() => setIsPersonaFlyerOpen(true)}
-          tourTipsOn={tourTipsOn}
-          onToggleTourTips={() => setTourTipsOn(!tourTipsOn)}
         />
-
-        {/* 💡 Contextual Dark Tooltip Popover (Only on steps 2-4 if enabled) 💡 */}
-        {currentStep !== "normal" && (
-          <ContextualTip
-            step={currentStep}
-            isOpen={tourTipsOn}
-            onClose={() => setTourTipsOn(false)}
-          />
-        )}
 
         {/* Screen 1: Normal Groww SIP Flow */}
         {currentStep === "normal" && (
@@ -222,23 +145,14 @@ export default function Home({
               confirmedAmount={confirmedPlan.amount}
               confirmedDate={confirmedPlan.debitDate}
               tierName={confirmedPlan.tier}
-              onResetFlow={() => navigateToStep("normal")}
-              onOpenPersonaModal={() => setIsPersonaFlyerOpen(true)}
+              onResetFlow={() => setCurrentStep("normal")}
+              onOpenPersonaModal={() => setCurrentStep("normal")}
             />
           </main>
         )}
 
         {/* Compliance Footer */}
         <ComplianceFooter />
-
-        {/* ✈️ Interactive Tester Flyer Pop-up (Accessible anytime) ✈️ */}
-        <PersonaFlyerModal
-          isOpen={isPersonaFlyerOpen}
-          onClose={() => setIsPersonaFlyerOpen(false)}
-          personas={PERSONAS}
-          selectedPersona={selectedPersona}
-          onSelectPersona={handleSelectPersona}
-        />
       </div>
     </div>
   );
