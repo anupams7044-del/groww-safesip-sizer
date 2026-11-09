@@ -45,30 +45,41 @@ export const NormalSIPFlow: React.FC<NormalSIPFlowProps> = ({
 
   return (
     <div className="w-full max-w-xl mx-auto p-4 sm:p-6 space-y-4 pb-24 transition-all duration-300">
-      {/* 🌟 1. TOP BANNER (Exact Match to Screenshot, 100% Mobile Optimized) 🌟 */}
-      <div className="bg-white rounded-2xl p-3.5 sm:p-4 border border-blue-200/90 shadow-xs flex flex-col gap-3 transition-all hover:shadow-sm">
-        <div className="flex items-start gap-2.5">
-          <div className="w-8 h-8 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center shrink-0 text-blue-600 mt-0.5">
-            <Sparkles className="w-4 h-4 text-blue-600" />
+      {/* 🌟 1. TOP BANNER (Dimmed Box with Highlighted CTA & Emerging 1-Line Popup) 🌟 */}
+      <div className="bg-slate-900/95 rounded-2xl p-4 border border-slate-800 shadow-md flex flex-col gap-3 transition-all relative">
+        <div className="flex items-start gap-2.5 opacity-60">
+          <div className="w-8 h-8 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center shrink-0 text-slate-400 mt-0.5">
+            <Sparkles className="w-4 h-4 text-slate-400" />
           </div>
           <div className="flex-1">
-            <h3 className="font-bold text-gray-900 text-xs sm:text-sm leading-snug">
+            <h3 className="font-bold text-slate-200 text-xs sm:text-sm leading-snug">
               Missed a SIP installment or unsure how much you can safely invest?
             </h3>
-            <p className="text-[10.5px] sm:text-[11px] text-gray-500 leading-normal mt-0.5">
+            <p className="text-[10.5px] sm:text-[11px] text-slate-400 leading-normal mt-0.5">
               Use SIP Sizer to right-size your monthly SIP from your last 6 months bank statement and avoid ₹250–₹590 bank NACH bounce fees.
             </p>
           </div>
         </div>
 
-        <button
-          id="tour-step1-cta"
-          onClick={onOpenSizerFlow}
-          className="w-full sm:w-auto self-stretch sm:self-end py-2 px-3.5 bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-bold text-xs rounded-xl shadow-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer"
-        >
-          <span>Switch to SIP Sizer</span>
-          <ArrowRight className="w-3.5 h-3.5" />
-        </button>
+        {/* Highlighted CTA with Emerging 1-Line Pop-up */}
+        <div className="self-stretch sm:self-end flex flex-col sm:flex-row items-end sm:items-center gap-2 pt-1">
+          {/* Pop-up emerging from button */}
+          <div className="flex items-center gap-1.5 bg-white text-slate-950 text-[11px] font-bold px-3 py-1.5 rounded-full shadow-lg border border-blue-400 animate-pulse whitespace-nowrap">
+            <span className="w-2 h-2 rounded-full bg-blue-600 animate-ping" />
+            <span>Click here to calculate your safe SIP amount</span>
+            <span className="hidden sm:inline text-blue-600 font-black">→</span>
+          </div>
+
+          {/* Highlighted Glowing Button */}
+          <button
+            id="tour-step1-cta"
+            onClick={onOpenSizerFlow}
+            className="w-full sm:w-auto py-2.5 px-4 bg-blue-600 hover:bg-blue-500 active:scale-95 text-white font-extrabold text-xs sm:text-sm rounded-xl shadow-[0_0_20px_rgba(37,99,235,0.7)] ring-4 ring-blue-400/60 hover:ring-blue-400 transition-all flex items-center justify-center gap-1.5 cursor-pointer shrink-0"
+          >
+            <span>Switch to SIP Sizer</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
+        </div>
       </div>
 
       {/* 🌟 2. MAIN NORMAL SIP CARD (Exact Match to Screenshot) 🌟 */}

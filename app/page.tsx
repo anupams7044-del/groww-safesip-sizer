@@ -172,12 +172,14 @@ export default function Home({
           onToggleTourTips={() => setTourTipsOn(!tourTipsOn)}
         />
 
-        {/* 💡 Contextual Dark Tooltip Popover (Matching Gemini Screenshot) 💡 */}
-        <ContextualTip
-          step={currentStep}
-          isOpen={tourTipsOn}
-          onClose={() => setTourTipsOn(false)}
-        />
+        {/* 💡 Contextual Dark Tooltip Popover (Only on steps 2-4 if enabled) 💡 */}
+        {currentStep !== "normal" && (
+          <ContextualTip
+            step={currentStep}
+            isOpen={tourTipsOn}
+            onClose={() => setTourTipsOn(false)}
+          />
+        )}
 
         {/* Screen 1: Normal Groww SIP Flow */}
         {currentStep === "normal" && (
