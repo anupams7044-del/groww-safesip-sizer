@@ -50,10 +50,10 @@ export const GuidedWalkthroughModal: React.FC<GuidedWalkthroughModalProps> = ({
       title: "3 Cross-Segment Synthetic Personas",
       targetScreen: "sizer" as const,
       description:
-        "Evaluators can test three distinct cashflow realities without connecting personal bank accounts: Priya Nair (salaried fresher), Rohan Das (freelancer with irregular payouts), and Arjun Mehta (teacher with ₹58k EMIs).",
+        "Evaluators can test three distinct cashflow realities without connecting personal bank accounts: Priya Nair (salaried fresher), Rohan Das (salaried with mid-month expense spikes), and Arjun Mehta (teacher with ₹58k EMIs).",
       highlights: [
         "Priya (₹2,000/mo, 5th): Steady salary buffer",
-        "Rohan (₹5,000/mo, 10th): Irregular invoice alignment",
+        "Rohan (₹2,500/mo, 10th): Post-payday expense buffer",
         "Arjun (₹4,500/mo, 5th): Heavy debt-to-income protection",
       ],
       icon: <Users className="w-5 h-5 text-blue-600" />,

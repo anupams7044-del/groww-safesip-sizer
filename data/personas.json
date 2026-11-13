@@ -65,63 +65,63 @@
   {
     "id": "rohan",
     "name": "Rohan Das",
-    "tagline": "Freelance Consultant (Irregular Cashflows)",
+    "tagline": "Salaried Employee (Variable Mid-Month Expenses)",
     "lifecycleStage": "Month 5 At-Risk User",
     "badgeColor": "bg-amber-100 text-amber-800 border-amber-300",
     "age": 28,
-    "profession": "Freelance UI/UX Consultant",
+    "profession": "Marketing Specialist (Salaried)",
     "city": "Mumbai",
-    "incomePattern": "Irregular freelance income",
-    "monthlySalary": 68000,
-    "payday": 6,
-    "paydayGuessAmount": 15000,
+    "incomePattern": "Salaried • Variable Expenses",
+    "monthlySalary": 55000,
+    "payday": 5,
+    "paydayGuessAmount": 10000,
     "bankName": "ICICI Bank",
-    "whyThisAmount": "Client invoices clear between the 5th and 10th. With ₹35,000 fixed bills and ₹19,800 typical expenses, a ₹5,000 SIP on the 10th guarantees payment clearance without cash crunch.",
-    "fallbackText": "Variable income fallback: Capped at conservative 35% of lowest historical month surplus.",
-    "story": "Started a ₹15,000 SIP on the 15th. When clients delayed payments in Month 3, he faced a ₹450 NACH bounce fee. With Safe SIP Sizer, his debit date is aligned to the 10th and SIP is right-sized to ₹5,000.",
+    "whyThisAmount": "Salary credits on the 5th. With ₹28,000 fixed commitments and fluctuating mid-month expenses, auto-debit on the 10th right after payday absorbs unpredictable lifestyle spikes without cash crunch.",
+    "fallbackText": "Variable expenses fallback: Preserves a 60% liquid buffer to absorb mid-month expense spikes.",
+    "story": "Started an unbuffered ₹10,000 SIP on the 18th. When unexpected medical and bike repair expenses hit mid-month, his account balance dipped and he faced a ₹450 NACH bounce fee. With Safe SIP Sizer, his debit date is aligned to the 10th (right after salary) and SIP is right-sized to ₹2,500.",
     "historicalData": [
       {
         "month": "May 2026",
-        "salary": 68000,
-        "fixedCommitments": { "rent": 17000, "emis": 7000, "insuranceAndUtilities": 4000, "familySupport": 7000, "totalFixed": 35000 },
-        "variedLifestyle": { "groceriesAndDineOut": 8500, "shoppingAndLeisure": 5000, "adhocSpikes": 3000, "spikeReason": "Software tooling renewals", "totalVaried": 16500 },
-        "netSurplus": 16500
+        "salary": 55000,
+        "fixedCommitments": { "rent": 14000, "emis": 6000, "insuranceAndUtilities": 3000, "familySupport": 5000, "totalFixed": 28000 },
+        "variedLifestyle": { "groceriesAndDineOut": 7000, "shoppingAndLeisure": 4000, "adhocSpikes": 2500, "spikeReason": "Vehicle routine servicing", "totalVaried": 13500 },
+        "netSurplus": 13500
       },
       {
         "month": "Jun 2026",
-        "salary": 68000,
-        "fixedCommitments": { "rent": 17000, "emis": 7000, "insuranceAndUtilities": 4000, "familySupport": 7000, "totalFixed": 35000 },
-        "variedLifestyle": { "groceriesAndDineOut": 8000, "shoppingAndLeisure": 4800, "adhocSpikes": 16000, "spikeReason": "Emergency laptop hardware replacement (Work continuity)", "totalVaried": 28800 },
-        "netSurplus": 4200,
+        "salary": 55000,
+        "fixedCommitments": { "rent": 14000, "emis": 6000, "insuranceAndUtilities": 3000, "familySupport": 5000, "totalFixed": 28000 },
+        "variedLifestyle": { "groceriesAndDineOut": 6800, "shoppingAndLeisure": 3800, "adhocSpikes": 12400, "spikeReason": "Emergency medical dental procedure & prescription", "totalVaried": 23000 },
+        "netSurplus": 4000,
         "isLowestSurplusMonth": true
       },
       {
         "month": "Jul 2026",
-        "salary": 68000,
-        "fixedCommitments": { "rent": 17000, "emis": 7000, "insuranceAndUtilities": 4000, "familySupport": 7000, "totalFixed": 35000 },
-        "variedLifestyle": { "groceriesAndDineOut": 8000, "shoppingAndLeisure": 4800, "adhocSpikes": 6000, "spikeReason": "Client on-site travel advance", "totalVaried": 18800 },
-        "netSurplus": 14200
+        "salary": 55000,
+        "fixedCommitments": { "rent": 14000, "emis": 6000, "insuranceAndUtilities": 3000, "familySupport": 5000, "totalFixed": 28000 },
+        "variedLifestyle": { "groceriesAndDineOut": 7000, "shoppingAndLeisure": 4000, "adhocSpikes": 4500, "spikeReason": "Family travel advance & medical tests", "totalVaried": 15500 },
+        "netSurplus": 11500
       },
       {
         "month": "Aug 2026",
-        "salary": 68000,
-        "fixedCommitments": { "rent": 17000, "emis": 7000, "insuranceAndUtilities": 4000, "familySupport": 7000, "totalFixed": 35000 },
-        "variedLifestyle": { "groceriesAndDineOut": 8500, "shoppingAndLeisure": 5500, "adhocSpikes": 4500, "spikeReason": "Vehicle maintenance & monsoons", "totalVaried": 18500 },
-        "netSurplus": 14500
+        "salary": 55000,
+        "fixedCommitments": { "rent": 14000, "emis": 6000, "insuranceAndUtilities": 3000, "familySupport": 5000, "totalFixed": 28000 },
+        "variedLifestyle": { "groceriesAndDineOut": 7200, "shoppingAndLeisure": 4200, "adhocSpikes": 3600, "spikeReason": "Monsoon bike repair & home maintenance", "totalVaried": 15000 },
+        "netSurplus": 12000
       },
       {
         "month": "Sep 2026",
-        "salary": 68000,
-        "fixedCommitments": { "rent": 17000, "emis": 7000, "insuranceAndUtilities": 4000, "familySupport": 7000, "totalFixed": 35000 },
-        "variedLifestyle": { "groceriesAndDineOut": 8500, "shoppingAndLeisure": 5000, "adhocSpikes": 3500, "spikeReason": "Portfolio hosting & client domain fees", "totalVaried": 17000 },
-        "netSurplus": 16000
+        "salary": 55000,
+        "fixedCommitments": { "rent": 14000, "emis": 6000, "insuranceAndUtilities": 3000, "familySupport": 5000, "totalFixed": 28000 },
+        "variedLifestyle": { "groceriesAndDineOut": 7000, "shoppingAndLeisure": 4000, "adhocSpikes": 3000, "spikeReason": "Annual health checkup & appliance servicing", "totalVaried": 14000 },
+        "netSurplus": 13000
       },
       {
         "month": "Oct 2026",
-        "salary": 68000,
-        "fixedCommitments": { "rent": 17000, "emis": 7000, "insuranceAndUtilities": 4000, "familySupport": 7000, "totalFixed": 35000 },
-        "variedLifestyle": { "groceriesAndDineOut": 8500, "shoppingAndLeisure": 5000, "adhocSpikes": 5700, "spikeReason": "Festive purchases & freelance tax filing", "totalVaried": 19200 },
-        "netSurplus": 13800
+        "salary": 55000,
+        "fixedCommitments": { "rent": 14000, "emis": 6000, "insuranceAndUtilities": 3000, "familySupport": 5000, "totalFixed": 28000 },
+        "variedLifestyle": { "groceriesAndDineOut": 7200, "shoppingAndLeisure": 4200, "adhocSpikes": 4800, "spikeReason": "Festive purchases & family gifts", "totalVaried": 16200 },
+        "netSurplus": 10800
       }
     ]
   },

@@ -122,7 +122,7 @@ export const AAConsentScreen: React.FC<AAConsentScreenProps> = ({
                       {p.age} yrs · {p.city}
                     </div>
 
-                    <div className="mt-2 pt-1.5 border-t border-gray-100 text-[10px] font-medium text-emerald-800 line-clamp-1">
+                    <div className="mt-2 pt-1.5 border-t border-gray-100 text-[9.5px] font-medium text-emerald-800 leading-tight min-h-[26px] line-clamp-2">
                       {p.incomePattern}
                     </div>
                   </div>

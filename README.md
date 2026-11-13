@@ -15,7 +15,7 @@
    - Available via a floating pill (*"Switch Persona"*).
    - Allows evaluators and mentors to switch between 3 real-world salaried personas:
      - **Priya Nair** (Age 24, QA Engineer, ₹45,000/mo, Day 0 New Investor)
-     - **Rohan Das** (Age 27, Digital Marketing, ₹68,000/mo, Month 5 At-Risk User)
+     - **Rohan Das** (Age 28, Marketing Specialist, ₹55,000/mo, Month 5 At-Risk User · Variable Expenses)
      - **Arjun Mehta** (Age 29, Data Lead, ₹95,000/mo, Month 13 Retained User)
    - Displays each user's **Profession, Age, Monthly Salary**, and contextual cashflow history.
 4. **4-Stage Seamless User Flow:**
