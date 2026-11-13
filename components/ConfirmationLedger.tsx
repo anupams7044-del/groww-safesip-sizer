@@ -130,11 +130,24 @@ export const ConfirmationLedger: React.FC<ConfirmationLedgerProps> = ({
             </div>
 
             {/* Explaining the need to the Evaluator */}
-            <div className="mt-1.5 px-2.5 py-1.5 bg-slate-50 rounded-xl border border-slate-200 text-[10.5px] text-gray-600 flex items-start gap-1.5 leading-snug">
-              <Info className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-              <span>
-                <strong className="text-gray-900 font-bold">Note for Evaluator:</strong> User research shows 6 of 6 users assumed modifying carries fees, leading 3 of 6 to cancel outright during tight months. Highlighting ₹0 modification eliminates this cancellation bias.
-              </span>
+            <div className="mt-1.5 px-2.5 py-2 bg-slate-50 rounded-xl border border-slate-200 text-[10.5px] text-gray-600 space-y-1.5 leading-snug">
+              <div className="flex items-start gap-1.5">
+                <Info className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                <span>
+                  <strong className="text-gray-900 font-bold">Note for Evaluator:</strong> User research shows 6 of 6 users assumed modifying carries fees, leading 3 of 6 to cancel outright during tight months. Highlighting ₹0 modification eliminates this cancellation bias.
+                </span>
+              </div>
+              <div className="pt-1 border-t border-slate-200/80 flex items-center justify-between">
+                <span className="font-semibold text-gray-700">Detailed Strategy Deck &amp; User Research:</span>
+                <a
+                  href="https://drive.google.com/file/d/1Sf0EtaMTuiub5ifFTYK9JN8q_-LdElFL/view?usp=sharing"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-bold text-emerald-700 hover:text-emerald-900 hover:underline flex items-center gap-0.5"
+                >
+                  <span>Open Presentation ↗</span>
+                </a>
+              </div>
             </div>
           </div>
         </div>

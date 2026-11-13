@@ -446,7 +446,7 @@ export const SafeSIPSizerView: React.FC<SafeSIPSizerViewProps> = ({
 
         {showEvaluatorNote && (
           <div className="p-4 pt-0 border-t border-gray-100 animate-fade-in">
-            <div className="bg-gradient-to-br from-slate-900 to-slate-800 text-white p-4 rounded-2xl space-y-2">
+            <div className="bg-gradient-to-br from-slate-900 to-slate-800 text-white p-4 rounded-2xl space-y-3">
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-extrabold uppercase tracking-wider text-emerald-400 bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-800">
                   SafeSIP Core Strategy
@@ -456,6 +456,23 @@ export const SafeSIPSizerView: React.FC<SafeSIPSizerViewProps> = ({
               <p className="text-xs text-slate-300 leading-relaxed">
                 <strong>Churn Prevention at Core:</strong> Unbudgeted SIP amounts trigger ₹250–₹590 bank bounce fees, causing first-year investor drop-off. SafeSIP combines RBI AA bank cashflow parsing with a 10% emergency buffer and 3–5 day post-payday alignment to eliminate involuntary churn.
               </p>
+              
+              {/* Evaluator Presentation Deck Link */}
+              <div className="p-2.5 rounded-xl bg-slate-800/90 border border-slate-700 flex items-center justify-between gap-2">
+                <div className="text-[11px] text-slate-300">
+                  <span className="text-white font-bold block">Final Strategy Deck &amp; Research</span>
+                  <span className="text-[10px] text-slate-400">Full cohort unit economics &amp; edge-case PRD</span>
+                </div>
+                <a
+                  href="https://drive.google.com/file/d/1Sf0EtaMTuiub5ifFTYK9JN8q_-LdElFL/view?usp=sharing"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-2.5 py-1.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-[11px] rounded-lg transition-all shrink-0 flex items-center gap-1 shadow-sm"
+                >
+                  <span>Open Presentation ↗</span>
+                </a>
+              </div>
+
               <div className="text-[11px] text-slate-400 pt-1 border-t border-slate-700">
                 ✓ 6-month historical stress test · ✓ Payday alignment · ✓ ₹0 modification fee guarantee
               </div>

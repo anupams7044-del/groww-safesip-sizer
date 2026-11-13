@@ -24,7 +24,26 @@ export const GrowwHeader: React.FC<GrowwHeaderProps> = ({
 }) => {
   return (
     <header className="sticky top-0 z-30 bg-white border-b border-gray-100 shadow-xs w-full">
-      <div className="max-w-xl mx-auto px-4 py-2.5 flex items-center justify-between">
+      {/* 🌟 Evaluator Notice Banner linking to final strategy deck 🌟 */}
+      <div className="bg-slate-900 text-white text-[11px] px-3 py-1.5 flex items-center justify-between border-b border-slate-800">
+        <div className="flex items-center gap-1.5 truncate">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+          <span className="text-slate-300 font-medium truncate">
+            <strong className="text-white font-bold">Note for Evaluator:</strong> Product Strategy &amp; Deck
+          </span>
+        </div>
+        <a
+          href="https://drive.google.com/file/d/1Sf0EtaMTuiub5ifFTYK9JN8q_-LdElFL/view?usp=sharing"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-emerald-400 hover:text-emerald-300 font-bold flex items-center gap-1 shrink-0 ml-2 hover:underline transition-colors"
+          title="Open Final Strategy Presentation"
+        >
+          <span>Open Strategy Presentation ↗</span>
+        </a>
+      </div>
+
+      <div className="max-w-xl mx-auto px-4 py-2 flex items-center justify-between">
         <div className="flex items-center gap-3">
           {showBack ? (
             <button
