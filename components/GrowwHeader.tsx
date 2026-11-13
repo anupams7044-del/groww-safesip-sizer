@@ -33,7 +33,7 @@ export const GrowwHeader: React.FC<GrowwHeaderProps> = ({
           </span>
         </div>
         <a
-          href="https://drive.google.com/file/d/1Sf0EtaMTuiub5ifFTYK9JN8q_-LdElFL/view?usp=sharing"
+          href="https://docs.google.com/presentation/d/1Mwr0W3VeC5wQV_NkiswejEsDuy8X_yzP0LnPlMgytL0/edit?usp=sharing"
           target="_blank"
           rel="noopener noreferrer"
           className="text-emerald-400 hover:text-emerald-300 font-bold flex items-center gap-1 shrink-0 ml-2 hover:underline transition-colors"

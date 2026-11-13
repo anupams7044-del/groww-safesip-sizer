@@ -140,7 +140,7 @@ export const ConfirmationLedger: React.FC<ConfirmationLedgerProps> = ({
               <div className="pt-1 border-t border-slate-200/80 flex items-center justify-between">
                 <span className="font-semibold text-gray-700">Detailed Strategy Deck &amp; User Research:</span>
                 <a
-                  href="https://drive.google.com/file/d/1Sf0EtaMTuiub5ifFTYK9JN8q_-LdElFL/view?usp=sharing"
+                  href="https://docs.google.com/presentation/d/1Mwr0W3VeC5wQV_NkiswejEsDuy8X_yzP0LnPlMgytL0/edit?usp=sharing"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-bold text-emerald-700 hover:text-emerald-900 hover:underline flex items-center gap-0.5"

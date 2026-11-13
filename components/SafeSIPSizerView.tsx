@@ -464,7 +464,7 @@ export const SafeSIPSizerView: React.FC<SafeSIPSizerViewProps> = ({
                   <span className="text-[10px] text-slate-400">Full cohort unit economics &amp; edge-case PRD</span>
                 </div>
                 <a
-                  href="https://drive.google.com/file/d/1Sf0EtaMTuiub5ifFTYK9JN8q_-LdElFL/view?usp=sharing"
+                  href="https://docs.google.com/presentation/d/1Mwr0W3VeC5wQV_NkiswejEsDuy8X_yzP0LnPlMgytL0/edit?usp=sharing"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-2.5 py-1.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-[11px] rounded-lg transition-all shrink-0 flex items-center gap-1 shadow-sm"
